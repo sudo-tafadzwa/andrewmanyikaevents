@@ -5,7 +5,11 @@
       "Bash(timeout:*)",
       "Bash(ping:*)",
       "Bash(cd:*)",
-      "Bash(git init:*)"
+      "Bash(git init:*)",
+      "Bash(git branch:*)",
+      "Bash(git push:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ]
   }
 }
