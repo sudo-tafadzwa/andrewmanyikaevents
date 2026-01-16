@@ -1,0 +1,271 @@
+import { motion } from 'framer-motion';
+import { Check, Sparkles, Zap, Star, Crown, Calendar } from 'lucide-react';
+
+const WHATSAPP_NUMBER = '263782826984'; // Zimbabwe format
+
+const getWhatsAppUrl = (ticketType: string, isDeposit: boolean = false) => {
+  const message = isDeposit
+    ? `Hi! I'd like to reserve a ${ticketType} ticket for Spices & Spouses on February 14th, 2026 with a deposit. Please send me the payment details.`
+    : `Hi! I'd like to book a ${ticketType} ticket for Spices & Spouses on February 14th, 2026. Please send me the payment details.`;
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+};
+
+export function PricingSection() {
+  const standardFeatures = [
+    '4 Course Gourmet Dinner',
+    'Red carpet entrance',
+    'Live entertainment',
+    'Party games with MC',
+    'Karaoke',
+    'Moonlight sparklers',
+    'Spicy Photobooth',
+    'Complementary gifts',
+    'Digital photo gallery'
+  ];
+
+  const premiumFeatures = [
+    'Everything in Standard, plus:',
+    'Personalized poetry performance',
+    'VIP premium seating',
+    'Exclusive luxury gift package ($150+ value)',
+    'Priority service all night',
+    'Personalized welcome experience',
+    'Private photo session'
+  ];
+
+  return (
+    <section className="py-24 bg-gradient-to-b from-[#1a0000] to-[#0a0000] px-4 relative overflow-hidden">
+      {/* Background glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#8B0000] rounded-full blur-[250px] opacity-10" />
+
+      <div className="max-w-6xl mx-auto relative z-10">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <div className="inline-flex items-center gap-2 bg-[#8B0000]/10 border border-[#8B0000]/20 rounded-full px-4 py-2 mb-6">
+            <Zap className="w-4 h-4 text-[#B76E79]" />
+            <span className="text-[#B76E79] text-sm font-medium">EXCLUSIVE TICKETS</span>
+          </div>
+          <h2 className="text-5xl md:text-6xl font-serif text-white mb-6">
+            Choose Your
+            <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8B0000] via-[#B76E79] to-[#8B0000]">
+              Experience
+            </span>
+          </h2>
+          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+            Two incredible packages designed for an unforgettable Valentine's celebration
+          </p>
+        </motion.div>
+
+        {/* Reservation Deadline Banner */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="max-w-3xl mx-auto mb-12 p-4 rounded-xl bg-gradient-to-r from-[#8B0000]/30 to-[#B76E79]/20 border border-[#B76E79]/30 text-center"
+        >
+          <div className="flex items-center justify-center gap-2 text-[#B76E79]">
+            <Calendar className="w-5 h-5" />
+            <span className="font-medium">Reservations must be completed by February 4th, 2026</span>
+          </div>
+        </motion.div>
+
+        {/* Pricing Cards */}
+        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          {/* Standard Ticket */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="relative"
+          >
+            <div className="relative bg-gradient-to-br from-[#1a0000] to-[#0a0000] border border-[#8B0000]/30 rounded-3xl p-8 h-full">
+              {/* Badge */}
+              <div className="inline-flex items-center gap-2 bg-[#8B0000]/20 border border-[#8B0000]/30 rounded-full px-4 py-2 mb-6">
+                <Star className="w-4 h-4 text-[#B76E79]" />
+                <span className="text-[#B76E79] text-sm font-medium">STANDARD</span>
+              </div>
+
+              {/* Price */}
+              <div className="mb-8">
+                <p className="text-gray-400 text-sm uppercase tracking-wider mb-2">Per Person</p>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-6xl font-serif font-bold text-white">$100</span>
+                  <span className="text-gray-500 text-sm">all-inclusive</span>
+                </div>
+              </div>
+
+              {/* Features */}
+              <div className="space-y-3 mb-8">
+                {standardFeatures.map((feature, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.05 }}
+                    className="flex items-center gap-3"
+                  >
+                    <div className="w-5 h-5 rounded-full bg-[#8B0000]/20 border border-[#8B0000]/40 flex items-center justify-center flex-shrink-0">
+                      <Check className="w-3 h-3 text-[#B76E79]" />
+                    </div>
+                    <span className="text-gray-300 text-sm">{feature}</span>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* CTA Buttons */}
+              <div className="space-y-3">
+                <motion.a
+                  href={getWhatsAppUrl('Standard ($100)')}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="block w-full py-4 px-6 bg-gradient-to-r from-[#8B0000] to-[#A00000] text-white rounded-xl font-medium shadow-[0_0_30px_rgba(139,0,0,0.3)] hover:shadow-[0_0_50px_rgba(139,0,0,0.5)] transition-all duration-300 text-center"
+                >
+                  Book Standard - $100
+                </motion.a>
+
+                <motion.a
+                  href={getWhatsAppUrl('Standard ($100)', true)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="block w-full py-4 px-6 bg-transparent border border-[#8B0000]/40 text-gray-400 rounded-xl font-medium hover:bg-[#8B0000]/10 hover:text-white transition-all duration-300 text-center"
+                >
+                  Reserve with $30 Deposit
+                </motion.a>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Premium Ticket */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="relative"
+          >
+            {/* Glow effect */}
+            <div className="absolute -inset-1 bg-gradient-to-r from-[#8B0000] to-[#B76E79] rounded-3xl blur opacity-30" />
+
+            <div className="relative bg-gradient-to-br from-[#1a0000] to-[#0a0000] border border-[#B76E79]/40 rounded-3xl p-8 h-full">
+              {/* Badge */}
+              <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#8B0000] to-[#B76E79] px-6 py-2 rounded-full text-white font-medium text-sm shadow-lg flex items-center gap-2">
+                <Crown className="w-4 h-4" />
+                RECOMMENDED
+              </div>
+
+              <div className="inline-flex items-center gap-2 bg-[#B76E79]/20 border border-[#B76E79]/30 rounded-full px-4 py-2 mb-6 mt-4">
+                <Sparkles className="w-4 h-4 text-[#B76E79]" />
+                <span className="text-[#B76E79] text-sm font-medium">PREMIUM VIP</span>
+              </div>
+
+              {/* Price */}
+              <div className="mb-8">
+                <p className="text-gray-400 text-sm uppercase tracking-wider mb-2">Per Person</p>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-6xl font-serif font-bold text-white">$150</span>
+                  <span className="text-gray-500 text-sm">all-inclusive</span>
+                </div>
+                <p className="text-[#B76E79] text-sm mt-2">
+                  ✨ The ultimate personalized experience
+                </p>
+              </div>
+
+              {/* Features */}
+              <div className="space-y-3 mb-8">
+                {premiumFeatures.map((feature, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.05 }}
+                    className="flex items-center gap-3"
+                  >
+                    <div className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 ${
+                      i === 0
+                        ? 'bg-[#B76E79]/30 border border-[#B76E79]/50'
+                        : 'bg-gradient-to-br from-[#8B0000] to-[#B76E79]'
+                    }`}>
+                      {i === 0 ? (
+                        <Sparkles className="w-3 h-3 text-[#B76E79]" />
+                      ) : (
+                        <Check className="w-3 h-3 text-white" />
+                      )}
+                    </div>
+                    <span className={`text-sm ${i === 0 ? 'text-[#B76E79] font-medium' : 'text-gray-300'}`}>
+                      {feature}
+                    </span>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* CTA Buttons */}
+              <div className="space-y-3">
+                <motion.a
+                  href={getWhatsAppUrl('Premium VIP ($150)')}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="block w-full py-4 px-6 bg-gradient-to-r from-[#B76E79] to-[#8B0000] text-white rounded-xl font-medium shadow-[0_0_40px_rgba(183,110,121,0.4)] hover:shadow-[0_0_60px_rgba(183,110,121,0.6)] transition-all duration-300 text-center"
+                >
+                  Book Premium VIP - $150
+                </motion.a>
+
+                <motion.a
+                  href={getWhatsAppUrl('Premium VIP ($150)', true)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="block w-full py-4 px-6 bg-transparent border border-[#B76E79]/40 text-[#B76E79] rounded-xl font-medium hover:bg-[#B76E79]/10 transition-all duration-300 text-center"
+                >
+                  Reserve with $50 Deposit
+                </motion.a>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Bottom note */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="text-center mt-12"
+        >
+          <p className="text-gray-400 text-sm">
+            <span className="text-[#B76E79] font-medium">Saturday, February 14th, 2026 • 6 – 10 PM</span>
+            <br />
+            Rainbow Towers VIP Lounge, Harare • Limited to 100 guests
+          </p>
+        </motion.div>
+
+        {/* Trust badges */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="flex flex-wrap justify-center gap-8 mt-8 text-gray-500 text-sm"
+        >
+          {['Money-back guarantee', '100% secure checkout', 'Instant confirmation', 'Customer support'].map((badge, i) => (
+            <div key={i} className="flex items-center gap-2">
+              <Check className="w-4 h-4 text-[#B76E79]" />
+              <span>{badge}</span>
+            </div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
