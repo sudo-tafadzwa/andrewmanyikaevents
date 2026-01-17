@@ -12,6 +12,7 @@
     'http://localhost:5173',
     'http://localhost:5174',
     'http://localhost:3000',
+    'https://andrewmanyikaevents.vercel.app',
     process.env.FRONTEND_URL // Add your production frontend URL as env variable
   ].filter(Boolean);
 
@@ -19,7 +20,7 @@
     origin: function(origin, callback) {
       // Allow requests with no origin (like mobile apps or curl)
       if (!origin) return callback(null, true);
-      if (allowedOrigins.indexOf(origin) !== -1 || process.env.NODE_ENV !== 'production') {
+      if (allowedOrigins.indexOf(origin) !== -1) {
         callback(null, true);
       } else {
         callback(new Error('Not allowed by CORS'));
