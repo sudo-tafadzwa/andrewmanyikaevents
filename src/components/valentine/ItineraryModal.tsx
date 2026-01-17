@@ -1,6 +1,6 @@
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { X, Camera, Music, Utensils, Gamepad2, Users, Mic, Sparkles, Star, Gift, Crown, Gem, Shield, Award, MapPin, ChevronLeft, ChevronRight } from 'lucide-react';
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 
 interface ItineraryModalProps {
   isOpen: boolean;
@@ -148,31 +148,35 @@ export function ItineraryModal({ isOpen, onClose, onViewMenu }: ItineraryModalPr
     }
   };
 
-  // Prevent body scroll when modal is open
-  if (typeof window !== 'undefined') {
+  // Prevent body scroll when modal is open (use effect to avoid running during render)
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
     if (isOpen) {
       document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
     }
-  }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
+
+  const shouldReduceMotion = useReducedMotion();
 
   return (
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.2 }}
+          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
+          animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1 }}
+          exit={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ duration: shouldReduceMotion ? 0 : 0.18 }}
           className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80"
           onClick={onClose}
         >
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            transition={{ duration: 0.2 }}
+            exit={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.18 }}
             className="relative w-full max-w-5xl max-h-[90vh] bg-gradient-to-br from-[#1a0000] to-[#0a0000] rounded-2xl sm:rounded-3xl overflow-hidden border border-[#8B0000]/30"
             onClick={(e) => e.stopPropagation()}
           >
@@ -262,14 +266,12 @@ export function ItineraryModal({ isOpen, onClose, onViewMenu }: ItineraryModalPr
                               {item.description}
                             </p>
                             {item.hasMenu && (
-                              <motion.button
-                                whileHover={{ scale: 1.02 }}
-                                whileTap={{ scale: 0.98 }}
+                              <button
                                 onClick={onViewMenu}
-                                className="mt-4 px-4 py-2 bg-[#8B0000]/20 border border-[#8B0000]/40 rounded-lg text-[#B76E79] text-sm font-medium hover:bg-[#8B0000]/30 transition-all duration-300"
+                                className="mt-4 px-4 py-2 bg-[#8B0000]/20 border border-[#8B0000]/40 rounded-lg text-[#B76E79] text-sm font-medium hover:bg-[#8B0000]/30 transition-all duration-150"
                               >
                                 View Full Menu
-                              </motion.button>
+                              </button>
                             )}
                           </div>
                         </div>
@@ -280,12 +282,7 @@ export function ItineraryModal({ isOpen, onClose, onViewMenu }: ItineraryModalPr
               </div>
 
               {/* Premium Experiences Section */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8 }}
-                className="mt-12 p-8 rounded-2xl bg-gradient-to-br from-[#B76E79]/20 to-[#8B0000]/10 border border-[#B76E79]/30"
-              >
+              <div className="mt-12 p-8 rounded-2xl bg-gradient-to-br from-[#B76E79]/20 to-[#8B0000]/10 border border-[#B76E79]/30">
                 <div className="text-center mb-6">
                   <span className="text-[#B76E79] text-sm font-medium tracking-wider uppercase">
                     Upgrade to Premium - $150
@@ -305,15 +302,10 @@ export function ItineraryModal({ isOpen, onClose, onViewMenu }: ItineraryModalPr
                     </div>
                   ))}
                 </div>
-              </motion.div>
+              </div>
 
               {/* Venue Section */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1 }}
-                className="mt-12"
-              >
+              <div className="mt-12">
                 <div className="text-center mb-8">
                   <div className="inline-flex items-center gap-2 bg-[#8B0000]/10 border border-[#8B0000]/20 rounded-full px-4 py-2 mb-4">
                     <MapPin className="w-4 h-4 text-[#B76E79]" />
@@ -470,7 +462,7 @@ export function ItineraryModal({ isOpen, onClose, onViewMenu }: ItineraryModalPr
                     </div>
                   ))}
                 </div>
-              </motion.div>
+              </div>
             </div>
           </motion.div>
         </motion.div>

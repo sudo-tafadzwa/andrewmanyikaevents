@@ -121,7 +121,7 @@ export function PricingSection() {
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              className="flex-shrink-0 w-[300px] snap-center relative"
+              className="flex-shrink-0 w-[300px] snap-center relative overflow-visible"
             >
               <div className="relative bg-gradient-to-br from-[#1a0000] to-[#0a0000] border border-[#8B0000]/30 rounded-2xl p-6 h-full">
                 <div className="inline-flex items-center gap-2 bg-[#8B0000]/20 border border-[#8B0000]/30 rounded-full px-3 py-1.5 mb-4">
@@ -177,9 +177,9 @@ export function PricingSection() {
               transition={{ delay: 0.1 }}
               className="flex-shrink-0 w-[300px] snap-center relative"
             >
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-[#8B0000] to-[#B76E79] rounded-2xl blur opacity-30" />
-              <div className="relative bg-gradient-to-br from-[#1a0000] to-[#0a0000] border border-[#B76E79]/40 rounded-2xl p-6 h-full">
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#8B0000] to-[#B76E79] px-4 py-1 rounded-full text-white font-medium text-xs shadow-lg flex items-center gap-1">
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-[#8B0000] to-[#B76E79] rounded-2xl blur opacity-30 z-0" />
+              <div className="relative bg-gradient-to-br from-[#1a0000] to-[#0a0000] border border-[#B76E79]/40 rounded-2xl p-6 h-full overflow-visible">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#8B0000] to-[#B76E79] px-4 py-1 rounded-full text-white font-medium text-xs shadow-lg flex items-center gap-1 z-10">
                   <Crown className="w-3 h-3" />
                   RECOMMENDED
                 </div>
@@ -319,11 +319,11 @@ export function PricingSection() {
             className="relative"
           >
             {/* Glow effect */}
-            <div className="absolute -inset-1 bg-gradient-to-r from-[#8B0000] to-[#B76E79] rounded-3xl blur opacity-30" />
+            <div className="absolute -inset-1 bg-gradient-to-r from-[#8B0000] to-[#B76E79] rounded-3xl blur opacity-30 z-0" />
 
             <div className="relative bg-gradient-to-br from-[#1a0000] to-[#0a0000] border border-[#B76E79]/40 rounded-3xl p-8 h-full">
               {/* Badge */}
-              <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#8B0000] to-[#B76E79] px-6 py-2 rounded-full text-white font-medium text-sm shadow-lg flex items-center gap-2">
+              <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#8B0000] to-[#B76E79] px-6 py-2 rounded-full text-white font-medium text-sm shadow-lg flex items-center gap-2 z-10">
                 <Crown className="w-4 h-4" />
                 RECOMMENDED
               </div>

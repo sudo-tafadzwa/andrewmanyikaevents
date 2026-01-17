@@ -225,10 +225,11 @@ export function Dashboard() {
           <div className="relative z-10">
             {/* Logo */}
             <img
-              src="/images/logo.png"
-              alt="Spices & Spouses"
+              src={`${import.meta.env.BASE_URL}images/logo.png`}
+              alt="Andrews Manyika Events"
               className="h-12 mb-4"
               onError={(e) => {
+                // hide gracefully if image fails to load
                 e.currentTarget.style.display = 'none';
               }}
             />
