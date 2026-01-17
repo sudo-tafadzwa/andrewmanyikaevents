@@ -288,9 +288,6 @@ export function ExperienceGrid({ onViewItinerary, onViewMenu }: ExperienceGridPr
           transition={{ duration: 0.6, delay: 0.3 }}
           className="text-center mt-12 md:mt-16 px-4"
         >
-          <p className="text-gray-400 mb-6 text-sm md:text-base">
-            Plus valet parking, coat check, and exclusive take-home gifts
-          </p>
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
