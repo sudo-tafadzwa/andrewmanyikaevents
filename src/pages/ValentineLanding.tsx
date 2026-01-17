@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { HeroSection } from '../components/valentine/HeroSection';
 import { ScarcityCounter } from '../components/valentine/ScarcityCounter';
 import { ExperienceGrid } from '../components/valentine/ExperienceGrid';
@@ -12,6 +12,29 @@ import { MenuModal } from '../components/valentine/MenuModal';
 export function ValentineLanding() {
   const [isItineraryOpen, setIsItineraryOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [menuOpenedFromItinerary, setMenuOpenedFromItinerary] = useState(false);
+
+  const handleOpenMenuFromItinerary = useCallback(() => {
+    setMenuOpenedFromItinerary(true);
+    setIsMenuOpen(true);
+  }, []);
+
+  const handleCloseMenu = useCallback(() => {
+    setIsMenuOpen(false);
+    // If menu was opened from itinerary, reopen itinerary after a brief delay
+    if (menuOpenedFromItinerary) {
+      setMenuOpenedFromItinerary(false);
+      // Small delay to allow menu close animation
+      setTimeout(() => {
+        setIsItineraryOpen(true);
+      }, 100);
+    }
+  }, [menuOpenedFromItinerary]);
+
+  const handleOpenMenu = useCallback(() => {
+    setMenuOpenedFromItinerary(false);
+    setIsMenuOpen(true);
+  }, []);
 
   return (
     <main className="min-h-screen bg-[#0a0000] overflow-x-hidden">
@@ -19,7 +42,7 @@ export function ValentineLanding() {
       <ScarcityCounter />
       <ExperienceGrid
         onViewItinerary={() => setIsItineraryOpen(true)}
-        onViewMenu={() => setIsMenuOpen(true)}
+        onViewMenu={handleOpenMenu}
       />
       <VenueShowcase />
       <PricingSection />
@@ -28,16 +51,13 @@ export function ValentineLanding() {
 
       {/* Modals */}
       <ItineraryModal
-        isOpen={isItineraryOpen}
+        isOpen={isItineraryOpen && !isMenuOpen}
         onClose={() => setIsItineraryOpen(false)}
-        onViewMenu={() => {
-          setIsItineraryOpen(false);
-          setIsMenuOpen(true);
-        }}
+        onViewMenu={handleOpenMenuFromItinerary}
       />
       <MenuModal
         isOpen={isMenuOpen}
-        onClose={() => setIsMenuOpen(false)}
+        onClose={handleCloseMenu}
       />
 
       {/* Footer */}
