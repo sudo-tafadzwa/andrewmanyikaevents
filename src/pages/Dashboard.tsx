@@ -225,7 +225,7 @@ export function Dashboard() {
           <div className="relative z-10">
             {/* Logo */}
             <img
-              src={`${import.meta.env.BASE_URL}images/logo.png`}
+              src="/images/logo.png"
               alt="Andrews Manyika Events"
               className="h-12 mb-4"
               onError={(e) => {

@@ -63,9 +63,6 @@ export function ValentineLanding() {
         <div className="max-w-4xl mx-auto px-4">
           <p className="text-white font-serif text-xl mb-2">Andrews Manyika Events</p>
           <p className="text-gray-400 mb-6">Creating unforgettable experiences since 2016</p>
-          <div className="flex flex-wrap justify-center gap-6 mb-6 text-xs">
-            <a href="#" className="hover:text-[#B76E79] transition-colors">FAQ</a>
-          </div>
           <p className="text-gray-600 text-xs">
             &copy; 2026 Andrews Manyika Events. All rights reserved.
           </p>
