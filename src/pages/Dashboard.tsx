@@ -243,104 +243,125 @@ export function Dashboard() {
           </div>
         </motion.div>
 
-        {/* Quick Stats Row */}
-        <div className="grid grid-cols-2 gap-3 mt-4">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.1 }}
-            className="p-4 rounded-2xl bg-gradient-to-br from-[#1a0505] to-[#0a0000] border border-[#8B0000]/20"
-          >
-            <div className="flex items-center gap-2 mb-2">
-              <div className="w-8 h-8 rounded-lg bg-[#8B0000]/30 flex items-center justify-center">
-                <Ticket className="w-4 h-4 text-[#B76E79]" />
-              </div>
-              <span className="text-gray-400 text-xs">Sold</span>
-            </div>
-            <p className="text-2xl font-bold text-white">{totalTicketsSold}</p>
-            <p className="text-xs text-gray-500">{totalTickets - totalTicketsSold} remaining</p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2 }}
-            className="p-4 rounded-2xl bg-gradient-to-br from-[#1a0505] to-[#0a0000] border border-green-900/30"
-          >
-            <div className="flex items-center gap-2 mb-2">
-              <div className="w-8 h-8 rounded-lg bg-green-900/30 flex items-center justify-center">
-                <DollarSign className="w-4 h-4 text-green-400" />
-              </div>
-              <span className="text-gray-400 text-xs">Revenue</span>
-            </div>
-            <p className="text-2xl font-bold text-white">${stats?.totalRevenue.toLocaleString() || 0}</p>
-            <div className="flex items-center gap-1 text-xs text-green-400">
-              <TrendingUp className="w-3 h-3" />
-              <span>Great progress!</span>
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Progress Bar */}
+        {/* Total Tickets Remaining - Big Card */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="mt-4 p-4 rounded-2xl bg-gradient-to-br from-[#1a0505] to-[#0a0000] border border-[#8B0000]/20"
+          transition={{ delay: 0.1 }}
+          className="mt-4 p-6 rounded-3xl bg-gradient-to-br from-[#8B0000]/30 to-[#1a0505] border border-[#8B0000]/40 relative overflow-hidden"
         >
-          <div className="flex justify-between items-center mb-3">
-            <span className="text-white font-medium">Sales Progress</span>
-            <span className="text-[#B76E79] font-bold">{progressPercent.toFixed(0)}%</span>
-          </div>
-          <div className="h-3 bg-[#8B0000]/20 rounded-full overflow-hidden">
-            <motion.div
-              initial={{ width: 0 }}
-              animate={{ width: `${progressPercent}%` }}
-              transition={{ duration: 1, delay: 0.5 }}
-              className="h-full bg-gradient-to-r from-[#8B0000] via-[#B76E79] to-[#8B0000] rounded-full"
-            />
-          </div>
-          <div className="flex justify-between mt-2 text-xs text-gray-500">
-            <span>{totalTicketsSold} sold</span>
-            <span>{totalTickets} total</span>
+          <div className="absolute top-0 right-0 w-40 h-40 bg-[#B76E79]/10 rounded-full blur-3xl" />
+          <div className="relative z-10">
+            <div className="flex items-center gap-2 mb-3">
+              <div className="w-10 h-10 rounded-xl bg-[#8B0000]/40 flex items-center justify-center">
+                <Ticket className="w-5 h-5 text-[#B76E79]" />
+              </div>
+              <span className="text-gray-300 text-sm font-medium">Total Tickets Remaining</span>
+            </div>
+            <div className="flex items-end gap-3 mb-3">
+              <p className="text-5xl font-bold text-white">{totalTickets - totalTicketsSold}</p>
+              <p className="text-gray-400 text-lg mb-1">/ {totalTickets}</p>
+            </div>
+            {/* Progress Bar */}
+            <div className="h-2 bg-[#8B0000]/20 rounded-full overflow-hidden mb-2">
+              <motion.div
+                initial={{ width: 0 }}
+                animate={{ width: `${progressPercent}%` }}
+                transition={{ duration: 1, delay: 0.3 }}
+                className="h-full bg-gradient-to-r from-[#8B0000] via-[#B76E79] to-[#8B0000] rounded-full"
+              />
+            </div>
+            <div className="flex justify-between text-xs">
+              <span className="text-gray-400">{totalTicketsSold} sold ({progressPercent.toFixed(0)}%)</span>
+              <span className="text-[#B76E79] font-medium">{totalTickets - totalTicketsSold} available</span>
+            </div>
           </div>
         </motion.div>
 
-        {/* Ticket Type Cards */}
-        <div className="grid grid-cols-2 gap-3 mt-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="p-4 rounded-2xl bg-gradient-to-br from-[#1a0505] to-[#0a0000] border border-[#8B0000]/30"
-          >
-            <div className="flex items-center gap-2 mb-3">
-              <Users className="w-5 h-5 text-[#B76E79]" />
-              <span className="text-white font-medium text-sm">Standard</span>
+        {/* Revenue Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="mt-3 p-4 rounded-2xl bg-gradient-to-br from-[#1a0505] to-[#0a0000] border border-green-900/30"
+        >
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-green-900/30 flex items-center justify-center">
+                <DollarSign className="w-5 h-5 text-green-400" />
+              </div>
+              <div>
+                <p className="text-gray-400 text-xs">Total Revenue</p>
+                <p className="text-2xl font-bold text-white">${stats?.totalRevenue.toLocaleString() || 0}</p>
+              </div>
             </div>
-            <p className="text-3xl font-bold text-white mb-1">{stats?.standard.sold || 0}</p>
-            <p className="text-xs text-gray-400">{stats?.standard.remaining || 0} left of {stats?.standard.total || 50}</p>
-            <div className="mt-2 px-2 py-1 bg-[#8B0000]/20 rounded-full inline-block">
-              <span className="text-[#B76E79] text-xs font-medium">$100</span>
+            <div className="flex items-center gap-1 text-xs text-green-400">
+              <TrendingUp className="w-3 h-3" />
+              <span>Great!</span>
             </div>
-          </motion.div>
+          </div>
+        </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="p-4 rounded-2xl bg-gradient-to-br from-[#B76E79]/10 to-[#1a0505] border border-[#B76E79]/30"
-          >
-            <div className="flex items-center gap-2 mb-3">
-              <Crown className="w-5 h-5 text-[#B76E79]" />
-              <span className="text-white font-medium text-sm">Premium VIP</span>
-            </div>
-            <p className="text-3xl font-bold text-white mb-1">{stats?.premium.sold || 0}</p>
-            <p className="text-xs text-gray-400">{stats?.premium.remaining || 0} left of {stats?.premium.total || 50}</p>
-            <div className="mt-2 px-2 py-1 bg-[#B76E79]/20 rounded-full inline-block">
-              <span className="text-[#B76E79] text-xs font-medium">$150</span>
-            </div>
-          </motion.div>
+        {/* Category Breakdown - Tickets Bought Per Category */}
+        <div className="mt-4">
+          <h2 className="text-white font-medium mb-3 px-1">Tickets Sold by Category</h2>
+          <div className="grid grid-cols-2 gap-3">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              className="p-4 rounded-2xl bg-gradient-to-br from-[#1a0505] to-[#0a0000] border border-[#8B0000]/30"
+            >
+              <div className="flex items-center gap-2 mb-3">
+                <Users className="w-5 h-5 text-[#B76E79]" />
+                <span className="text-white font-medium text-sm">Standard</span>
+              </div>
+              <div className="mb-3">
+                <p className="text-4xl font-bold text-white mb-1">{stats?.standard.sold || 0}</p>
+                <p className="text-xs text-gray-500">tickets bought</p>
+              </div>
+              <div className="space-y-1">
+                <p className="text-xs text-gray-400">{stats?.standard.remaining || 0} remaining of {stats?.standard.total || 50}</p>
+                <div className="h-1.5 bg-[#8B0000]/20 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-gradient-to-r from-[#8B0000] to-[#B76E79] rounded-full"
+                    style={{ width: `${((stats?.standard.sold || 0) / (stats?.standard.total || 50)) * 100}%` }}
+                  />
+                </div>
+              </div>
+              <div className="mt-3 px-2 py-1 bg-[#8B0000]/20 rounded-full inline-block">
+                <span className="text-[#B76E79] text-xs font-medium">$100 each</span>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+              className="p-4 rounded-2xl bg-gradient-to-br from-[#B76E79]/10 to-[#1a0505] border border-[#B76E79]/30"
+            >
+              <div className="flex items-center gap-2 mb-3">
+                <Crown className="w-5 h-5 text-[#B76E79]" />
+                <span className="text-white font-medium text-sm">Premium VIP</span>
+              </div>
+              <div className="mb-3">
+                <p className="text-4xl font-bold text-white mb-1">{stats?.premium.sold || 0}</p>
+                <p className="text-xs text-gray-500">tickets bought</p>
+              </div>
+              <div className="space-y-1">
+                <p className="text-xs text-gray-400">{stats?.premium.remaining || 0} remaining of {stats?.premium.total || 50}</p>
+                <div className="h-1.5 bg-[#8B0000]/20 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-gradient-to-r from-[#B76E79] to-[#8B0000] rounded-full"
+                    style={{ width: `${((stats?.premium.sold || 0) / (stats?.premium.total || 50)) * 100}%` }}
+                  />
+                </div>
+              </div>
+              <div className="mt-3 px-2 py-1 bg-[#B76E79]/20 rounded-full inline-block">
+                <span className="text-[#B76E79] text-xs font-medium">$150 each</span>
+              </div>
+            </motion.div>
+          </div>
         </div>
 
         {/* Tab Navigation */}
