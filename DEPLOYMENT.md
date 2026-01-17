@@ -1,78 +1,44 @@
 # Deployment Guide
 
-## Backend Deployment on Railway (Free Tier)
+## Deploy Everything on Vercel (Recommended)
 
-### Step 1: Create Railway Account
-1. Go to [railway.app](https://railway.app)
-2. Sign up with GitHub (recommended for easy deployment)
-
-### Step 2: Create New Project
-1. Click "New Project"
-2. Select "Deploy from GitHub repo"
-3. Choose this repository
-
-### Step 3: Configure Environment Variables
-In Railway dashboard, go to your project settings and add these variables:
-
-| Variable | Value |
-|----------|-------|
-| `MONGODB_URI` | `mongodb+srv://gleam_admin:Crazie13@gleam.991xcdg.mongodb.net/gleam?retryWrites=true&w=majority&appName=andrewmanyika` |
-| `FRONTEND_URL` | Your Vercel/Netlify frontend URL (e.g., `https://your-app.vercel.app`) |
-| `NODE_ENV` | `production` |
-
-### Step 4: Deploy
-Railway will automatically detect the `railway.json` and `Procfile` and deploy your backend.
-
-### Step 5: Get Your Backend URL
-After deployment, Railway will give you a URL like:
-`https://your-project-name.railway.app`
-
-Your API will be available at:
-`https://your-project-name.railway.app/api`
-
----
-
-## Frontend Deployment on Vercel
+This project uses Vercel Serverless Functions for the backend API, so you can host everything on Vercel for free.
 
 ### Step 1: Create Vercel Account
 1. Go to [vercel.com](https://vercel.com)
-2. Sign up with GitHub
+2. Sign up with GitHub (recommended for easy deployment)
 
 ### Step 2: Import Project
 1. Click "Add New Project"
 2. Import this repository from GitHub
+3. Vercel will auto-detect the Vite framework
 
 ### Step 3: Configure Environment Variables
-Add these environment variables in Vercel:
+Add this environment variable in Vercel project settings:
 
 | Variable | Value |
 |----------|-------|
-| `VITE_API_URL` | Your Railway backend URL + `/api` (e.g., `https://your-project.railway.app/api`) |
+| `MONGODB_URI` | `mongodb+srv://gleam_admin:Crazie13@gleam.991xcdg.mongodb.net/gleam?retryWrites=true&w=majority&appName=andrewmanyika` |
 
 ### Step 4: Deploy
-Vercel will automatically build and deploy your frontend.
+Click "Deploy" - Vercel will build your frontend and deploy the API functions automatically.
 
----
-
-## Post-Deployment
-
-### Update CORS
-After getting your Vercel URL, go back to Railway and update the `FRONTEND_URL` environment variable with your Vercel domain.
-
-### Access Dashboard
-Your ticket dashboard will be available at:
-`https://your-vercel-url.vercel.app/dashboard`
+### Step 5: Access Your Site
+After deployment, you'll get a URL like:
+- Landing Page: `https://your-project.vercel.app`
+- Dashboard: `https://your-project.vercel.app/dashboard`
+- API: `https://your-project.vercel.app/api/stats`
 
 ---
 
 ## Local Development
 
-### Run Frontend
+### Run Frontend + API locally
 ```bash
 npm run dev
 ```
 
-### Run Backend (separate terminal)
+For local API development, you can also run:
 ```bash
 npm run server
 ```
@@ -80,13 +46,32 @@ npm run server
 ### Access
 - Frontend: http://localhost:5173
 - Dashboard: http://localhost:5173/dashboard
-- API: http://localhost:3001/api
+- Local API: http://localhost:3001/api (when running server separately)
 
 ---
 
-## Railway Free Tier Limits
-- 500 hours/month execution time
-- $5 free credits/month
-- Sleeps after 30 min inactivity (wakes on request)
+## Alternative: Railway Backend (Optional)
 
-This is sufficient for a small dashboard that's used periodically.
+If you prefer to host the backend separately on Railway:
+
+### Railway Setup
+1. Go to [railway.app](https://railway.app)
+2. Create new project from GitHub
+3. Add environment variables:
+   - `MONGODB_URI`: Your MongoDB connection string
+   - `FRONTEND_URL`: Your Vercel frontend URL
+   - `NODE_ENV`: `production`
+
+4. Add `VITE_API_URL` to your Vercel project pointing to Railway URL
+
+---
+
+## API Endpoints
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/stats` | GET | Get ticket statistics |
+| `/api/tickets` | GET | Get all tickets |
+| `/api/tickets` | POST | Create new ticket sale |
+| `/api/tickets/:id` | PATCH | Cancel/restore ticket (body: `{action: 'cancel'}` or `{action: 'restore'}`) |
+| `/api/tickets/:id` | DELETE | Delete ticket permanently |

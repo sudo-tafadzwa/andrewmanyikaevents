@@ -101,11 +101,11 @@ export function HeroSection() {
         {/* Mobile Hero Image with Couple */}
         <div className="relative h-[45vh] overflow-hidden">
           <img
-            src="https://images.unsplash.com/photo-1529636798458-92182e662485?q=80&w=800"
-            alt="Couple dancing"
+            src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=800"
+            alt="People at formal event"
             className="w-full h-full object-cover"
             onError={(e) => {
-              e.currentTarget.src = 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=800';
+              e.currentTarget.src = 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=800';
             }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0a0000] via-[#0a0000]/60 to-transparent" />

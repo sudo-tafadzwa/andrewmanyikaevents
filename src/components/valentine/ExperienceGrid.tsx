@@ -27,10 +27,19 @@ const experiences = [
     fallbackImage: 'https://images.unsplash.com/photo-1607537002385-fe6f11ec19b8?q=80&w=800'
   },
   {
-    icon: Music,
+    icon: Mic,
     title: 'Stand Up Comedy & Poetry by Andrew Manyika',
-    desc: 'Dynamic Dancers, Prolific Poets and Magnificent Musicians take centre stage to send you on a unique visual and sonic journey',
+    desc: 'Prepare to laugh, reflect, and be moved as Andrew Manyika delivers his signature blend of sharp wit and soulful spoken word',
     gradient: 'from-[#722F37] to-[#8B0000]',
+    span: 'md:col-span-1',
+    image: 'https://images.unsplash.com/photo-1527224538127-2104bb71c51b?q=80&w=800',
+    fallbackImage: 'https://images.unsplash.com/photo-1527224538127-2104bb71c51b?q=80&w=800'
+  },
+  {
+    icon: Music,
+    title: 'Live Entertainment',
+    desc: 'Dynamic Dancers, Prolific Poets and Magnificent Musicians take centre stage to send you on a unique visual and sonic journey',
+    gradient: 'from-[#8B0000] to-[#B76E79]',
     span: 'md:col-span-1',
     image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=800',
     fallbackImage: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=800'

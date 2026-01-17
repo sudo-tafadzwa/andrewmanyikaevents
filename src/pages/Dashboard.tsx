@@ -28,8 +28,8 @@ interface Stats {
   totalRevenue: number;
 }
 
-// Use VITE_API_URL env variable in production, fallback to localhost for development
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
+// Use VITE_API_URL if set, otherwise use /api (works on Vercel), fallback to localhost for dev
+const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? '/api' : 'http://localhost:3001/api');
 
 export function Dashboard() {
   const [stats, setStats] = useState<Stats | null>(null);
@@ -105,8 +105,10 @@ export function Dashboard() {
   const handleCancelTicket = async (id: string) => {
     if (!confirm('Are you sure you want to cancel this ticket?')) return;
     try {
-      const res = await fetch(`${API_URL}/tickets/${id}/cancel`, {
-        method: 'PATCH'
+      const res = await fetch(`${API_URL}/tickets/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'cancel' })
       });
       if (!res.ok) throw new Error('Failed to cancel ticket');
       fetchData();
@@ -118,8 +120,10 @@ export function Dashboard() {
 
   const handleRestoreTicket = async (id: string) => {
     try {
-      const res = await fetch(`${API_URL}/tickets/${id}/restore`, {
-        method: 'PATCH'
+      const res = await fetch(`${API_URL}/tickets/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'restore' })
       });
       if (!res.ok) throw new Error('Failed to restore ticket');
       fetchData();
