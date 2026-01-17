@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Camera, Music, Utensils, Gamepad2, Users, Mic, Sparkles, Star, Gift, Crown, Gem, Shield, Award, MapPin } from 'lucide-react';
+import { X, Camera, Music, Utensils, Gamepad2, Users, Mic, Sparkles, Star, Gift, Crown, Gem, Shield, Award, MapPin, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useRef } from 'react';
 
 interface ItineraryModalProps {
   isOpen: boolean;
@@ -135,6 +136,18 @@ const venueFeatures = [
 ];
 
 export function ItineraryModal({ isOpen, onClose, onViewMenu }: ItineraryModalProps) {
+  const venueScrollRef = useRef<HTMLDivElement>(null);
+
+  const scrollVenue = (direction: 'left' | 'right') => {
+    if (venueScrollRef.current) {
+      const scrollAmount = 280;
+      venueScrollRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   // Prevent body scroll when modal is open
   if (typeof window !== 'undefined') {
     if (isOpen) {
@@ -318,8 +331,80 @@ export function ItineraryModal({ isOpen, onClose, onViewMenu }: ItineraryModalPr
                   </p>
                 </div>
 
-                {/* Venue Highlights Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                {/* Mobile Horizontal Scroll for Venue */}
+                <div className="md:hidden relative mb-8">
+                  {/* Scroll Indicator */}
+                  <div className="flex items-center justify-between px-1 mb-3">
+                    <span className="text-gray-400 text-sm">Swipe to explore</span>
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => scrollVenue('left')}
+                        className="w-8 h-8 rounded-full bg-[#8B0000]/30 border border-[#8B0000]/50 flex items-center justify-center text-white"
+                      >
+                        <ChevronLeft className="w-4 h-4" />
+                      </button>
+                      <button
+                        onClick={() => scrollVenue('right')}
+                        className="w-8 h-8 rounded-full bg-[#8B0000]/30 border border-[#8B0000]/50 flex items-center justify-center text-white"
+                      >
+                        <ChevronRight className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Horizontal Scroll Container */}
+                  <div
+                    ref={venueScrollRef}
+                    className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide"
+                    style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                  >
+                    {venueHighlights.map((item, i) => (
+                      <div
+                        key={i}
+                        className="flex-shrink-0 w-[260px] h-[180px] snap-center group relative overflow-hidden rounded-xl"
+                      >
+                        {/* Background Image */}
+                        <div className="absolute inset-0">
+                          <img
+                            src={item.image}
+                            alt={item.title}
+                            className="w-full h-full object-cover"
+                            onError={(e) => {
+                              if (item.fallback && e.currentTarget.src !== item.fallback) {
+                                e.currentTarget.src = item.fallback;
+                              }
+                            }}
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0000] via-[#0a0000]/70 to-transparent" />
+                        </div>
+
+                        {/* Content overlay */}
+                        <div className="absolute inset-0 p-3 flex flex-col justify-end">
+                          <div className="flex items-center gap-2 mb-1">
+                            <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#8B0000] to-[#B76E79] flex items-center justify-center">
+                              <item.icon className="w-3.5 h-3.5 text-white" />
+                            </div>
+                            <h4 className="text-sm font-serif text-white">{item.title}</h4>
+                          </div>
+                          <p className="text-gray-300 text-xs leading-relaxed line-clamp-2">{item.description}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Scroll Progress Dots */}
+                  <div className="flex justify-center gap-1.5 mt-3">
+                    {[0, 1, 2, 3].map((i) => (
+                      <div
+                        key={i}
+                        className={`w-1.5 h-1.5 rounded-full ${i === 0 ? 'bg-[#B76E79]' : 'bg-[#8B0000]/40'}`}
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                {/* Desktop Venue Highlights Grid */}
+                <div className="hidden md:grid md:grid-cols-2 gap-4 mb-8">
                   {venueHighlights.map((item, i) => (
                     <div
                       key={i}
@@ -354,8 +439,24 @@ export function ItineraryModal({ isOpen, onClose, onViewMenu }: ItineraryModalPr
                   ))}
                 </div>
 
-                {/* Venue Features */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {/* Mobile Venue Features - Horizontal Scroll */}
+                <div className="md:hidden flex gap-3 overflow-x-auto pb-2 snap-x snap-mandatory scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+                  {venueFeatures.map((feature, i) => (
+                    <div
+                      key={i}
+                      className="flex-shrink-0 w-[200px] snap-center p-4 rounded-xl bg-gradient-to-br from-[#8B0000]/10 to-transparent border border-[#8B0000]/20"
+                    >
+                      <div className="w-9 h-9 rounded-lg bg-[#8B0000]/20 flex items-center justify-center mb-2">
+                        <feature.icon className="w-4 h-4 text-[#B76E79]" />
+                      </div>
+                      <h4 className="text-white font-medium text-sm mb-1">{feature.title}</h4>
+                      <p className="text-gray-400 text-xs">{feature.desc}</p>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Desktop Venue Features */}
+                <div className="hidden md:grid md:grid-cols-3 gap-4">
                   {venueFeatures.map((feature, i) => (
                     <div
                       key={i}

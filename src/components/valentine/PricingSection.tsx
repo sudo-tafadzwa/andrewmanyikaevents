@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
-import { Check, Sparkles, Zap, Star, Crown, Calendar } from 'lucide-react';
+import { Check, Sparkles, Zap, Star, Crown, Calendar, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useRef } from 'react';
 
 const WHATSAPP_NUMBER = '263782826984'; // Zimbabwe format
 
@@ -11,6 +12,18 @@ const getWhatsAppUrl = (ticketType: string, isDeposit: boolean = false) => {
 };
 
 export function PricingSection() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollRef.current) {
+      const scrollAmount = 320;
+      scrollRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   const standardFeatures = [
     '4 Course Gourmet Dinner',
     'Red carpet entrance',
@@ -76,8 +89,159 @@ export function PricingSection() {
           </div>
         </motion.div>
 
-        {/* Pricing Cards */}
-        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        {/* Mobile Horizontal Scroll */}
+        <div className="md:hidden relative">
+          {/* Scroll Indicator */}
+          <div className="flex items-center justify-between px-4 mb-3">
+            <span className="text-gray-400 text-sm">Swipe to compare</span>
+            <div className="flex gap-2">
+              <button
+                onClick={() => scroll('left')}
+                className="w-8 h-8 rounded-full bg-[#8B0000]/30 border border-[#8B0000]/50 flex items-center justify-center text-white"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+              <button
+                onClick={() => scroll('right')}
+                className="w-8 h-8 rounded-full bg-[#8B0000]/30 border border-[#8B0000]/50 flex items-center justify-center text-white"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+
+          {/* Horizontal Scroll Container */}
+          <div
+            ref={scrollRef}
+            className="flex gap-4 overflow-x-auto pb-4 px-4 snap-x snap-mandatory scrollbar-hide"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
+            {/* Standard Ticket - Mobile */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="flex-shrink-0 w-[300px] snap-center relative"
+            >
+              <div className="relative bg-gradient-to-br from-[#1a0000] to-[#0a0000] border border-[#8B0000]/30 rounded-2xl p-6 h-full">
+                <div className="inline-flex items-center gap-2 bg-[#8B0000]/20 border border-[#8B0000]/30 rounded-full px-3 py-1.5 mb-4">
+                  <Star className="w-3 h-3 text-[#B76E79]" />
+                  <span className="text-[#B76E79] text-xs font-medium">STANDARD</span>
+                </div>
+
+                <div className="mb-6">
+                  <p className="text-gray-400 text-xs uppercase tracking-wider mb-1">Per Person</p>
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-4xl font-serif font-bold text-white">$100</span>
+                    <span className="text-gray-500 text-xs">all-inclusive</span>
+                  </div>
+                </div>
+
+                <div className="space-y-2 mb-6 max-h-[200px] overflow-y-auto">
+                  {standardFeatures.map((feature, i) => (
+                    <div key={i} className="flex items-center gap-2">
+                      <div className="w-4 h-4 rounded-full bg-[#8B0000]/20 border border-[#8B0000]/40 flex items-center justify-center flex-shrink-0">
+                        <Check className="w-2.5 h-2.5 text-[#B76E79]" />
+                      </div>
+                      <span className="text-gray-300 text-xs">{feature}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="space-y-2">
+                  <a
+                    href={getWhatsAppUrl('Standard ($100)')}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block w-full py-3 px-4 bg-gradient-to-r from-[#8B0000] to-[#A00000] text-white rounded-xl font-medium text-sm text-center"
+                  >
+                    Book Standard - $100
+                  </a>
+                  <a
+                    href={getWhatsAppUrl('Standard ($100)', true)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block w-full py-3 px-4 bg-transparent border border-[#8B0000]/40 text-gray-400 rounded-xl font-medium text-sm text-center"
+                  >
+                    Reserve with $30 Deposit
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Premium Ticket - Mobile */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="flex-shrink-0 w-[300px] snap-center relative"
+            >
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-[#8B0000] to-[#B76E79] rounded-2xl blur opacity-30" />
+              <div className="relative bg-gradient-to-br from-[#1a0000] to-[#0a0000] border border-[#B76E79]/40 rounded-2xl p-6 h-full">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#8B0000] to-[#B76E79] px-4 py-1 rounded-full text-white font-medium text-xs shadow-lg flex items-center gap-1">
+                  <Crown className="w-3 h-3" />
+                  RECOMMENDED
+                </div>
+
+                <div className="inline-flex items-center gap-2 bg-[#B76E79]/20 border border-[#B76E79]/30 rounded-full px-3 py-1.5 mb-4 mt-3">
+                  <Sparkles className="w-3 h-3 text-[#B76E79]" />
+                  <span className="text-[#B76E79] text-xs font-medium">PREMIUM VIP</span>
+                </div>
+
+                <div className="mb-6">
+                  <p className="text-gray-400 text-xs uppercase tracking-wider mb-1">Per Person</p>
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-4xl font-serif font-bold text-white">$150</span>
+                    <span className="text-gray-500 text-xs">all-inclusive</span>
+                  </div>
+                  <p className="text-[#B76E79] text-xs mt-1">The ultimate personalized experience</p>
+                </div>
+
+                <div className="space-y-2 mb-6 max-h-[200px] overflow-y-auto">
+                  {premiumFeatures.map((feature, i) => (
+                    <div key={i} className="flex items-center gap-2">
+                      <div className={`w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 ${
+                        i === 0 ? 'bg-[#B76E79]/30 border border-[#B76E79]/50' : 'bg-gradient-to-br from-[#8B0000] to-[#B76E79]'
+                      }`}>
+                        {i === 0 ? <Sparkles className="w-2.5 h-2.5 text-[#B76E79]" /> : <Check className="w-2.5 h-2.5 text-white" />}
+                      </div>
+                      <span className={`text-xs ${i === 0 ? 'text-[#B76E79] font-medium' : 'text-gray-300'}`}>{feature}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="space-y-2">
+                  <a
+                    href={getWhatsAppUrl('Premium VIP ($150)')}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block w-full py-3 px-4 bg-gradient-to-r from-[#B76E79] to-[#8B0000] text-white rounded-xl font-medium text-sm text-center"
+                  >
+                    Book Premium VIP - $150
+                  </a>
+                  <a
+                    href={getWhatsAppUrl('Premium VIP ($150)', true)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block w-full py-3 px-4 bg-transparent border border-[#B76E79]/40 text-[#B76E79] rounded-xl font-medium text-sm text-center"
+                  >
+                    Reserve with $50 Deposit
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Scroll Progress Dots */}
+          <div className="flex justify-center gap-1.5 mt-4">
+            <div className="w-2 h-2 rounded-full bg-[#B76E79]" />
+            <div className="w-2 h-2 rounded-full bg-[#8B0000]/40" />
+          </div>
+        </div>
+
+        {/* Desktop Grid Layout */}
+        <div className="hidden md:grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {/* Standard Ticket */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}

@@ -70,7 +70,7 @@ export function ValentineLanding() {
             <a href="#" className="hover:text-[#B76E79] transition-colors">FAQ</a>
           </div>
           <p className="text-gray-600 text-xs">
-            &copy; 2025 Andrews Manyika Events. All rights reserved.
+            &copy; 2026 Andrews Manyika Events. All rights reserved.
           </p>
         </div>
       </footer>
