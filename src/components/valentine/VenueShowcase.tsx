@@ -143,8 +143,8 @@ export function VenueShowcase() {
             },
             {
               icon: Users,
-              title: 'Valet & Concierge',
-              desc: 'Complimentary valet parking and dedicated concierge service'
+              title: 'Secure Parking',
+              desc: 'Safe and convenient parking facilities at Rainbow Towers'
             }
           ].map((feature, i) => (
             <motion.div
