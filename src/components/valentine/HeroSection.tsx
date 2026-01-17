@@ -96,33 +96,34 @@ export function HeroSection() {
         </div>
       </nav>
 
-      {/* Mobile Layout */}
-      <div className="lg:hidden min-h-screen pt-16">
-        {/* Mobile Hero Image with Couple */}
-        <div className="relative h-[45vh] overflow-hidden">
+      {/* Mobile Layout - Full screen background image with text overlay */}
+      <div className="lg:hidden relative min-h-screen pt-16">
+        {/* Full screen background image */}
+        <div className="absolute inset-0">
           <img
-            src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=800"
+            src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1200"
             alt="People at formal event"
             className="w-full h-full object-cover"
             onError={(e) => {
-              e.currentTarget.src = 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=800';
+              e.currentTarget.src = 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=1200';
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0000] via-[#0a0000]/60 to-transparent" />
+          {/* Dark overlay for text readability */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0000] via-[#0a0000]/80 to-[#0a0000]/40" />
+        </div>
 
-          {/* Badge overlay */}
-          <div className="absolute top-4 left-4">
+        {/* Mobile Content - overlaid on image */}
+        <div className="relative z-10 min-h-screen flex flex-col justify-end px-6 pb-8 pt-20">
+          {/* Badge */}
+          <div className="mb-6">
             <div className="inline-flex items-center gap-2 bg-[#8B0000]/80 backdrop-blur-sm border border-[#8B0000]/30 rounded-full px-3 py-1.5">
               <span className="w-2 h-2 bg-[#B76E79] rounded-full animate-pulse"></span>
               <span className="text-[#B76E79] text-xs font-medium tracking-wider">LIMITED TO 100 GUESTS</span>
             </div>
           </div>
-        </div>
 
-        {/* Mobile Content */}
-        <div className="px-6 py-8 bg-gradient-to-b from-[#0a0000] to-[#1a0000]">
           {/* Main Title */}
-          <h1 className="text-4xl font-serif text-white leading-[1.1] mb-4">
+          <h1 className="text-5xl font-serif text-white leading-[1.1] mb-4">
             Spices
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8B0000] via-[#B76E79] to-[#8B0000]">
               {' '}& Spouses
@@ -130,7 +131,7 @@ export function HeroSection() {
           </h1>
 
           {/* Description */}
-          <p className="text-gray-300 text-base leading-relaxed mb-6">
+          <p className="text-gray-200 text-base leading-relaxed mb-6">
             The one night in a year where fine dining, live entertainment, and meaningful
             connections are ignited and rekindled.
           </p>
@@ -144,9 +145,9 @@ export function HeroSection() {
             ].map((item, i) => (
               <div
                 key={i}
-                className="flex items-center gap-3 text-gray-400"
+                className="flex items-center gap-3 text-gray-300"
               >
-                <div className="w-10 h-10 rounded-lg bg-[#8B0000]/10 border border-[#8B0000]/20 flex items-center justify-center flex-shrink-0">
+                <div className="w-10 h-10 rounded-lg bg-[#8B0000]/30 backdrop-blur-sm border border-[#8B0000]/40 flex items-center justify-center flex-shrink-0">
                   <item.icon className="w-5 h-5 text-[#B76E79]" />
                 </div>
                 <span className="text-sm">{item.text}</span>
@@ -164,7 +165,7 @@ export function HeroSection() {
             </button>
             <button
               onClick={() => scrollToSection('#experience-section')}
-              className="w-full py-4 border border-[#8B0000]/40 text-gray-300 rounded-lg font-medium hover:bg-[#8B0000]/10 transition-colors"
+              className="w-full py-4 bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-lg font-medium hover:bg-white/20 transition-colors"
             >
               View Experience
             </button>
