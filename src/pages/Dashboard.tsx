@@ -194,17 +194,17 @@ export function Dashboard() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0a0000] via-[#1a0505] to-[#0a0000]">
-      {/* Mobile Header */}
+      {/* Header - Responsive */}
       <header className="sticky top-0 z-40 bg-[#0a0000]/95 backdrop-blur-lg border-b border-[#8B0000]/20">
-        <div className="px-4 py-4">
+        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-[#B76E79] text-xs font-medium tracking-wider uppercase">Dashboard</p>
-              <h1 className="text-xl font-serif text-white">Hey, Tino!</h1>
+              <h1 className="text-xl lg:text-2xl font-serif text-white">Hey, Tino!</h1>
             </div>
             <a
               href="/"
-              className="w-10 h-10 rounded-full bg-[#8B0000]/20 border border-[#8B0000]/30 flex items-center justify-center"
+              className="w-10 h-10 rounded-full bg-[#8B0000]/20 border border-[#8B0000]/30 flex items-center justify-center hover:bg-[#8B0000]/30 transition-colors"
             >
               <Home className="w-5 h-5 text-[#B76E79]" />
             </a>
@@ -213,12 +213,12 @@ export function Dashboard() {
       </header>
 
       {/* Main Content */}
-      <main className="px-4 pb-24">
+      <main className="max-w-7xl mx-auto px-4 lg:px-8 pb-24 lg:pb-12">
         {/* Welcome Card with Logo */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mt-4 p-6 rounded-3xl bg-gradient-to-br from-[#8B0000]/30 to-[#1a0000] border border-[#8B0000]/30 relative overflow-hidden"
+          className="mt-4 lg:mt-8 p-6 lg:p-8 rounded-3xl bg-gradient-to-br from-[#8B0000]/30 to-[#1a0000] border border-[#8B0000]/30 relative overflow-hidden"
         >
           <div className="absolute top-0 right-0 w-32 h-32 bg-[#B76E79]/10 rounded-full blur-3xl" />
           <div className="relative z-10">
@@ -226,101 +226,101 @@ export function Dashboard() {
             <img
               src="/images/logo.png"
               alt="Andrews Manyika Events"
-              className="h-12 mb-4"
+              className="h-12 lg:h-16 mb-4"
               onError={(e) => {
-                // hide gracefully if image fails to load
                 e.currentTarget.style.display = 'none';
               }}
             />
-            <p className="text-gray-300 text-sm mb-4">
+            <p className="text-gray-300 text-sm lg:text-base mb-4">
               Valentine's Day 2026 is coming up! Here's your ticket sales overview.
             </p>
-            <div className="flex items-center gap-2 text-[#B76E79] text-sm">
-              <Calendar className="w-4 h-4" />
+            <div className="flex items-center gap-2 text-[#B76E79] text-sm lg:text-base">
+              <Calendar className="w-4 h-4 lg:w-5 lg:h-5" />
               <span>February 14th, 2026</span>
             </div>
           </div>
         </motion.div>
 
-        {/* Total Tickets Remaining - Big Card */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="mt-4 p-6 rounded-3xl bg-gradient-to-br from-[#8B0000]/30 to-[#1a0505] border border-[#8B0000]/40 relative overflow-hidden"
-        >
-          <div className="absolute top-0 right-0 w-40 h-40 bg-[#B76E79]/10 rounded-full blur-3xl" />
-          <div className="relative z-10">
-            <div className="flex items-center gap-2 mb-3">
-              <div className="w-10 h-10 rounded-xl bg-[#8B0000]/40 flex items-center justify-center">
-                <Ticket className="w-5 h-5 text-[#B76E79]" />
+        {/* Desktop Grid Layout - Stats Cards */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6 mt-4 lg:mt-6">
+          {/* Total Tickets Remaining - Big Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="lg:col-span-2 p-6 lg:p-8 rounded-3xl bg-gradient-to-br from-[#8B0000]/30 to-[#1a0505] border border-[#8B0000]/40 relative overflow-hidden"
+          >
+            <div className="absolute top-0 right-0 w-40 h-40 bg-[#B76E79]/10 rounded-full blur-3xl" />
+            <div className="relative z-10">
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-xl bg-[#8B0000]/40 flex items-center justify-center">
+                  <Ticket className="w-5 h-5 lg:w-6 lg:h-6 text-[#B76E79]" />
+                </div>
+                <span className="text-gray-300 text-sm lg:text-base font-medium">Total Tickets Remaining</span>
               </div>
-              <span className="text-gray-300 text-sm font-medium">Total Tickets Remaining</span>
+              <div className="flex items-end gap-3 mb-4">
+                <p className="text-5xl lg:text-7xl font-bold text-white">{totalTickets - totalTicketsSold}</p>
+                <p className="text-gray-400 text-lg lg:text-2xl mb-1 lg:mb-2">/ {totalTickets}</p>
+              </div>
+              {/* Progress Bar */}
+              <div className="h-2 lg:h-3 bg-[#8B0000]/20 rounded-full overflow-hidden mb-2">
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{ width: `${progressPercent}%` }}
+                  transition={{ duration: 1, delay: 0.3 }}
+                  className="h-full bg-gradient-to-r from-[#8B0000] via-[#B76E79] to-[#8B0000] rounded-full"
+                />
+              </div>
+              <div className="flex justify-between text-xs lg:text-sm">
+                <span className="text-gray-400">{totalTicketsSold} sold ({progressPercent.toFixed(0)}%)</span>
+                <span className="text-[#B76E79] font-medium">{totalTickets - totalTicketsSold} available</span>
+              </div>
             </div>
-            <div className="flex items-end gap-3 mb-3">
-              <p className="text-5xl font-bold text-white">{totalTickets - totalTicketsSold}</p>
-              <p className="text-gray-400 text-lg mb-1">/ {totalTickets}</p>
-            </div>
-            {/* Progress Bar */}
-            <div className="h-2 bg-[#8B0000]/20 rounded-full overflow-hidden mb-2">
-              <motion.div
-                initial={{ width: 0 }}
-                animate={{ width: `${progressPercent}%` }}
-                transition={{ duration: 1, delay: 0.3 }}
-                className="h-full bg-gradient-to-r from-[#8B0000] via-[#B76E79] to-[#8B0000] rounded-full"
-              />
-            </div>
-            <div className="flex justify-between text-xs">
-              <span className="text-gray-400">{totalTicketsSold} sold ({progressPercent.toFixed(0)}%)</span>
-              <span className="text-[#B76E79] font-medium">{totalTickets - totalTicketsSold} available</span>
-            </div>
-          </div>
-        </motion.div>
+          </motion.div>
 
-        {/* Revenue Card */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="mt-3 p-4 rounded-2xl bg-gradient-to-br from-[#1a0505] to-[#0a0000] border border-green-900/30"
-        >
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-green-900/30 flex items-center justify-center">
-                <DollarSign className="w-5 h-5 text-green-400" />
+          {/* Revenue Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="p-6 lg:p-8 rounded-3xl bg-gradient-to-br from-[#1a0505] to-[#0a0000] border border-green-900/30 flex flex-col justify-between"
+          >
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-xl bg-green-900/30 flex items-center justify-center">
+                <DollarSign className="w-5 h-5 lg:w-6 lg:h-6 text-green-400" />
               </div>
-              <div>
-                <p className="text-gray-400 text-xs">Total Revenue</p>
-                <p className="text-2xl font-bold text-white">${stats?.totalRevenue.toLocaleString() || 0}</p>
+              <p className="text-gray-400 text-xs lg:text-sm">Total Revenue</p>
+            </div>
+            <div>
+              <p className="text-3xl lg:text-4xl font-bold text-white mb-2">${stats?.totalRevenue.toLocaleString() || 0}</p>
+              <div className="flex items-center gap-1 text-xs lg:text-sm text-green-400">
+                <TrendingUp className="w-3 h-3 lg:w-4 lg:h-4" />
+                <span>Great progress!</span>
               </div>
             </div>
-            <div className="flex items-center gap-1 text-xs text-green-400">
-              <TrendingUp className="w-3 h-3" />
-              <span>Great!</span>
-            </div>
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
 
         {/* Category Breakdown - Tickets Sold Per Category */}
-        <div className="mt-4">
-          <h2 className="text-white font-medium mb-3 px-1">Tickets Sold by Category</h2>
-          <div className="grid grid-cols-2 gap-3">
+        <div className="mt-4 lg:mt-6">
+          <h2 className="text-white font-medium text-base lg:text-lg mb-3 lg:mb-4 px-1">Tickets Sold by Category</h2>
+          <div className="grid grid-cols-2 lg:grid-cols-2 gap-3 lg:gap-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="p-4 rounded-2xl bg-gradient-to-br from-[#1a0505] to-[#0a0000] border border-[#8B0000]/30"
+              className="p-4 lg:p-6 rounded-2xl lg:rounded-3xl bg-gradient-to-br from-[#1a0505] to-[#0a0000] border border-[#8B0000]/30"
             >
-              <div className="flex items-center gap-2 mb-3">
-                <Users className="w-5 h-5 text-[#B76E79]" />
-                <span className="text-white font-medium text-sm">Standard</span>
+              <div className="flex items-center gap-2 mb-3 lg:mb-4">
+                <Users className="w-5 h-5 lg:w-6 lg:h-6 text-[#B76E79]" />
+                <span className="text-white font-medium text-sm lg:text-base">Standard</span>
               </div>
               <div className="mb-3">
-                <p className="text-4xl font-bold text-white mb-1">{stats?.standard.sold || 0}</p>
-                <p className="text-xs text-gray-500">tickets sold</p>
+                <p className="text-4xl lg:text-5xl font-bold text-white mb-1">{stats?.standard.sold || 0}</p>
+                <p className="text-xs lg:text-sm text-gray-500">tickets sold</p>
               </div>
               <div className="mt-3 px-2 py-1 bg-[#8B0000]/20 rounded-full inline-block">
-                <span className="text-[#B76E79] text-xs font-medium">$100 each</span>
+                <span className="text-[#B76E79] text-xs lg:text-sm font-medium">$100 each</span>
               </div>
             </motion.div>
 
@@ -328,25 +328,25 @@ export function Dashboard() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
-              className="p-4 rounded-2xl bg-gradient-to-br from-[#B76E79]/10 to-[#1a0505] border border-[#B76E79]/30"
+              className="p-4 lg:p-6 rounded-2xl lg:rounded-3xl bg-gradient-to-br from-[#B76E79]/10 to-[#1a0505] border border-[#B76E79]/30"
             >
-              <div className="flex items-center gap-2 mb-3">
-                <Crown className="w-5 h-5 text-[#B76E79]" />
-                <span className="text-white font-medium text-sm">Premium VIP</span>
+              <div className="flex items-center gap-2 mb-3 lg:mb-4">
+                <Crown className="w-5 h-5 lg:w-6 lg:h-6 text-[#B76E79]" />
+                <span className="text-white font-medium text-sm lg:text-base">Premium VIP</span>
               </div>
               <div className="mb-3">
-                <p className="text-4xl font-bold text-white mb-1">{stats?.premium.sold || 0}</p>
-                <p className="text-xs text-gray-500">tickets sold</p>
+                <p className="text-4xl lg:text-5xl font-bold text-white mb-1">{stats?.premium.sold || 0}</p>
+                <p className="text-xs lg:text-sm text-gray-500">tickets sold</p>
               </div>
               <div className="mt-3 px-2 py-1 bg-[#B76E79]/20 rounded-full inline-block">
-                <span className="text-[#B76E79] text-xs font-medium">$150 each</span>
+                <span className="text-[#B76E79] text-xs lg:text-sm font-medium">$150 each</span>
               </div>
             </motion.div>
           </div>
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex gap-2 mt-6 p-1 bg-[#1a0505] rounded-full border border-[#8B0000]/20">
+        <div className="flex gap-2 mt-6 lg:mt-8 p-1 bg-[#1a0505] rounded-full border border-[#8B0000]/20">
           <button
             onClick={() => setActiveTab('overview')}
             className={`flex-1 py-2 px-4 rounded-full text-sm font-medium transition-all ${
@@ -538,19 +538,20 @@ export function Dashboard() {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsAddModalOpen(true)}
-        className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-gradient-to-r from-[#8B0000] to-[#A00000] shadow-[0_0_30px_rgba(139,0,0,0.5)] flex items-center justify-center z-50"
+        className="fixed bottom-6 right-6 lg:bottom-8 lg:right-8 w-14 h-14 lg:w-16 lg:h-16 rounded-full bg-gradient-to-r from-[#8B0000] to-[#A00000] shadow-[0_0_30px_rgba(139,0,0,0.5)] flex items-center justify-center z-50"
       >
-        <Plus className="w-6 h-6 text-white" />
+        <Plus className="w-6 h-6 lg:w-7 lg:h-7 text-white" />
       </motion.button>
 
       {/* Refresh Button */}
       <motion.button
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
+        whileHover={{ scale: 1.05 }}
         onClick={fetchData}
-        className="fixed bottom-6 left-6 w-12 h-12 rounded-full bg-[#1a0505] border border-[#8B0000]/30 flex items-center justify-center z-50"
+        className="fixed bottom-6 left-6 lg:bottom-8 lg:left-8 w-12 h-12 lg:w-14 lg:h-14 rounded-full bg-[#1a0505] border border-[#8B0000]/30 flex items-center justify-center z-50 hover:bg-[#1a0505]/80 transition-colors"
       >
-        <RotateCcw className="w-5 h-5 text-[#B76E79]" />
+        <RotateCcw className="w-5 h-5 lg:w-6 lg:h-6 text-[#B76E79]" />
       </motion.button>
 
       {/* Add Ticket Modal */}
