@@ -97,7 +97,7 @@ export function HeroSection() {
       </nav>
 
       {/* Mobile Layout - Full screen background image with text overlay */}
-      <div className="lg:hidden relative min-h-screen pt-16">
+      <div className="lg:hidden relative min-h-screen">
         {/* Full screen background image */}
         <div className="absolute inset-0">
           <img
@@ -113,7 +113,7 @@ export function HeroSection() {
         </div>
 
         {/* Mobile Content - overlaid on image */}
-        <div className="relative z-10 min-h-screen flex flex-col justify-end px-6 pb-8 pt-20">
+        <div className="relative z-10 min-h-screen flex flex-col justify-end px-6 pb-8 pt-16">
           {/* Badge */}
           <div className="mb-6">
             <div className="inline-flex items-center gap-2 bg-[#8B0000]/80 backdrop-blur-sm border border-[#8B0000]/30 rounded-full px-3 py-1.5">

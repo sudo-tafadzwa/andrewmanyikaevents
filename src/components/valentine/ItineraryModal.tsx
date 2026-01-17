@@ -270,7 +270,7 @@ export function ItineraryModal({ isOpen, onClose, onViewMenu }: ItineraryModalPr
           </div>
 
           {/* Premium Experiences Section */}
-          <div className="mt-12 p-8 rounded-2xl bg-gradient-to-br from-[#B76E79]/20 to-[#8B0000]/10 border border-[#B76E79]/30">
+          <div className="mt-12 p-6 md:p-8 rounded-2xl bg-gradient-to-br from-[#B76E79]/20 to-[#8B0000]/10 border border-[#B76E79]/30">
             <div className="text-center mb-6">
               <span className="text-[#B76E79] text-sm font-medium tracking-wider uppercase">
                 Upgrade to Premium - $150
@@ -279,7 +279,22 @@ export function ItineraryModal({ isOpen, onClose, onViewMenu }: ItineraryModalPr
                 Personalized Extra Experiences
               </h3>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+            {/* Mobile Horizontal Scroll */}
+            <div className="md:hidden flex gap-4 overflow-x-auto pb-2 snap-x snap-mandatory scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+              {premiumExperiences.map((exp, index) => (
+                <div key={index} className="flex-shrink-0 w-[240px] snap-center p-4 rounded-xl bg-[#8B0000]/10 border border-[#8B0000]/20">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#8B0000] to-[#B76E79] flex items-center justify-center mb-3">
+                    <exp.icon className="w-5 h-5 text-white" />
+                  </div>
+                  <h4 className="text-white font-medium mb-1">{exp.title}</h4>
+                  <p className="text-gray-400 text-sm">{exp.description}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* Desktop Grid */}
+            <div className="hidden md:grid md:grid-cols-3 gap-4">
               {premiumExperiences.map((exp, index) => (
                 <div key={index} className="p-4 rounded-xl bg-[#8B0000]/10 border border-[#8B0000]/20">
                   <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#8B0000] to-[#B76E79] flex items-center justify-center mb-3">
