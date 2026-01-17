@@ -12,8 +12,8 @@ const itineraryItems = [
     title: 'Red Carpet Arrival',
     description: "It's Lights, Camera, Action when you walk the red carpet – dress to dazzle. Feel like a celebrity as cameras flash and your arrival is celebrated in style.",
     icon: Camera,
-    image: '/images/red-carpet.jpg',
-    fallbackImage: 'https://images.unsplash.com/photo-1478147427282-58a87a120781?q=80&w=600',
+    image: '/images/red-carpet.jpeg',
+    fallbackImage: 'https://images.unsplash.com/photo-1607537002385-fe6f11ec19b8?q=80&w=600',
     highlight: true
   },
   {
@@ -26,15 +26,14 @@ const itineraryItems = [
     title: 'Live Entertainment',
     description: 'Award winning Poets & Comedians; Dancers & DJs; and Magnificent Musicians take centre stage to take you on a unique visual and sonic journey.',
     icon: Music,
-    image: '/images/live-entertainment.jpg',
-    fallbackImage: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=600',
+    image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=600',
     highlight: true
   },
   {
     title: '4 Course Gourmet Dinner',
     description: 'Send your taste buds on this chef-curated culinary journey that turns your palate into a palace of Italian and French Cuisine.',
     icon: Utensils,
-    image: '/images/fine-dining.jpg',
+    image: '/images/fine-dining.jpeg',
     fallbackImage: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=600',
     hasMenu: true
   },
@@ -68,7 +67,8 @@ const itineraryItems = [
     title: 'Moonlight Sparklers',
     description: 'A dazzling surprise to end the evening. Professional photographers capture this breathtaking moment as we celebrate under the stars.',
     icon: Sparkles,
-    image: 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=600',
+    image: '/images/moonlight-sparkles.jpg',
+    fallbackImage: 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=600',
     highlight: true
   }
 ];
@@ -92,6 +92,15 @@ const premiumExperiences = [
 ];
 
 export function ItineraryModal({ isOpen, onClose, onViewMenu }: ItineraryModalProps) {
+  // Prevent body scroll when modal is open
+  if (typeof window !== 'undefined') {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+  }
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -99,15 +108,16 @@ export function ItineraryModal({ isOpen, onClose, onViewMenu }: ItineraryModalPr
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+          transition={{ duration: 0.2 }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80"
           onClick={onClose}
         >
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className="relative w-full max-w-5xl max-h-[90vh] bg-gradient-to-br from-[#1a0000] to-[#0a0000] rounded-3xl overflow-hidden border border-[#8B0000]/30"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.2 }}
+            className="relative w-full max-w-5xl max-h-[90vh] bg-gradient-to-br from-[#1a0000] to-[#0a0000] rounded-2xl sm:rounded-3xl overflow-hidden border border-[#8B0000]/30"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header */}
@@ -133,19 +143,16 @@ export function ItineraryModal({ isOpen, onClose, onViewMenu }: ItineraryModalPr
             </div>
 
             {/* Content */}
-            <div className="px-8 pb-8 overflow-y-auto max-h-[calc(90vh-120px)] custom-scrollbar">
+            <div className="px-4 sm:px-8 pb-8 overflow-y-auto max-h-[calc(90vh-120px)] overscroll-contain" style={{ WebkitOverflowScrolling: 'touch' }}>
               {/* Timeline */}
               <div className="relative">
                 {/* Timeline line */}
                 <div className="absolute left-6 top-0 bottom-0 w-px bg-gradient-to-b from-[#8B0000] via-[#B76E79] to-[#8B0000] hidden md:block" />
 
-                <div className="space-y-8">
+                <div className="space-y-6 sm:space-y-8">
                   {itineraryItems.map((item, index) => (
-                    <motion.div
+                    <div
                       key={index}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.1 }}
                       className="relative md:pl-16"
                     >
                       {/* Timeline dot */}
@@ -158,16 +165,16 @@ export function ItineraryModal({ isOpen, onClose, onViewMenu }: ItineraryModalPr
                       </div>
 
                       {/* Card */}
-                      <div className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#8B0000]/10 to-transparent border ${
+                      <div className={`group relative overflow-hidden rounded-xl sm:rounded-2xl bg-gradient-to-br from-[#8B0000]/10 to-transparent border ${
                         item.highlight ? 'border-[#B76E79]/40' : 'border-[#8B0000]/20'
-                      } hover:border-[#B76E79]/60 transition-all duration-300`}>
+                      }`}>
                         <div className="flex flex-col md:flex-row">
                           {/* Image */}
-                          <div className="relative w-full md:w-64 h-48 md:h-auto flex-shrink-0 overflow-hidden">
+                          <div className="relative w-full md:w-64 h-40 sm:h-48 md:h-auto flex-shrink-0 overflow-hidden">
                             <img
                               src={item.image}
                               alt={item.title}
-                              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                              className="w-full h-full object-cover"
                               onError={(e) => {
                                 if (item.fallbackImage && e.currentTarget.src !== item.fallbackImage) {
                                   e.currentTarget.src = item.fallbackImage;
@@ -181,7 +188,7 @@ export function ItineraryModal({ isOpen, onClose, onViewMenu }: ItineraryModalPr
                           </div>
 
                           {/* Content */}
-                          <div className="flex-1 p-6">
+                          <div className="flex-1 p-4 sm:p-6">
                             <div className="flex items-center gap-3 mb-3">
                               <div className="md:hidden w-10 h-10 rounded-full bg-[#8B0000]/20 flex items-center justify-center">
                                 <item.icon className="w-5 h-5 text-[#B76E79]" />
@@ -211,7 +218,7 @@ export function ItineraryModal({ isOpen, onClose, onViewMenu }: ItineraryModalPr
                           </div>
                         </div>
                       </div>
-                    </motion.div>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -244,28 +251,7 @@ export function ItineraryModal({ isOpen, onClose, onViewMenu }: ItineraryModalPr
                 </div>
               </motion.div>
             </div>
-
-            {/* Glow effects */}
-            <div className="absolute top-20 right-20 w-64 h-64 bg-[#8B0000] rounded-full blur-[150px] opacity-20 pointer-events-none" />
-            <div className="absolute bottom-20 left-20 w-48 h-48 bg-[#B76E79] rounded-full blur-[120px] opacity-15 pointer-events-none" />
           </motion.div>
-
-          <style>{`
-            .custom-scrollbar::-webkit-scrollbar {
-              width: 6px;
-            }
-            .custom-scrollbar::-webkit-scrollbar-track {
-              background: rgba(139, 0, 0, 0.1);
-              border-radius: 4px;
-            }
-            .custom-scrollbar::-webkit-scrollbar-thumb {
-              background: rgba(183, 110, 121, 0.5);
-              border-radius: 4px;
-            }
-            .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-              background: rgba(183, 110, 121, 0.7);
-            }
-          `}</style>
         </motion.div>
       )}
     </AnimatePresence>

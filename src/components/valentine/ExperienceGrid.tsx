@@ -13,7 +13,7 @@ const experiences = [
     desc: 'Send your taste buds on this chef-curated culinary journey that turns your palate into a palace of Italian and French Cuisine',
     gradient: 'from-[#8B0000] to-[#A00000]',
     span: 'md:col-span-2',
-    image: '/images/fine-dining.jpg',
+    image: '/images/fine-dining.jpeg',
     fallbackImage: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=800',
     hasMenu: true
   },
@@ -23,8 +23,8 @@ const experiences = [
     desc: "It's Lights, Camera, Action when you walk the red carpet – dress to dazzle",
     gradient: 'from-[#B76E79] to-[#8B0000]',
     span: 'md:col-span-1',
-    image: '/images/red-carpet.jpg',
-    fallbackImage: 'https://images.unsplash.com/photo-1478147427282-58a87a120781?q=80&w=800'
+    image: '/images/red-carpet.jpeg',
+    fallbackImage: 'https://images.unsplash.com/photo-1607537002385-fe6f11ec19b8?q=80&w=800'
   },
   {
     icon: Music,
@@ -32,7 +32,7 @@ const experiences = [
     desc: 'Award winning Poets & Comedians; Dancers & DJs; and Magnificent Musicians take centre stage to take you on a unique visual and sonic journey',
     gradient: 'from-[#722F37] to-[#8B0000]',
     span: 'md:col-span-1',
-    image: '/images/live-entertainment.jpg',
+    image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=800',
     fallbackImage: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=800'
   },
   {
@@ -77,7 +77,7 @@ const experiences = [
     desc: 'A dazzling surprise to end the evening',
     gradient: 'from-[#8B0000] to-[#B76E79]',
     span: 'md:col-span-1',
-    image: 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=800',
+    image: '/images/moonlight-sparkles.jpg',
     fallbackImage: 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=800'
   }
 ];

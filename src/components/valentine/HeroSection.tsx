@@ -111,25 +111,36 @@ export function HeroSection() {
           </div>
         </div>
 
-        {/* Right Side - Single Hero Image */}
+        {/* Right Side - Image Grid */}
         <div className="relative h-[50vh] lg:h-screen">
-          <motion.div
-            initial={{ opacity: 0, scale: 1.1 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1 }}
-            className="absolute inset-0 overflow-hidden"
-          >
-            <img
-              src="/images/hero-audience.jpg"
-              alt="Audience enjoying the performance"
-              className="w-full h-full object-cover"
-              onError={(e) => {
-                // Fallback to Unsplash if local image not found
-                e.currentTarget.src = 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1200';
-              }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#8B0000]/50 via-transparent to-transparent" />
-          </motion.div>
+          <div className="absolute inset-0 grid grid-cols-2 gap-1">
+            {[
+              { src: '/images/fine-dining.jpeg', fallback: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=800', alt: 'Fine dining experience' },
+              { src: '/images/red-carpet.jpeg', fallback: 'https://images.unsplash.com/photo-1607537002385-fe6f11ec19b8?q=80&w=800', alt: 'Red carpet arrival' },
+              { src: '/images/karaoke.jpg', fallback: 'https://images.unsplash.com/photo-1516280440614-37939bbacd81?q=80&w=800', alt: 'Karaoke entertainment' },
+              { src: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=800', fallback: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=800', alt: 'Professional photography' }
+            ].map((img, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, scale: 1.1 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.2 + i * 0.1, duration: 0.8 }}
+                className="relative overflow-hidden group"
+              >
+                <img
+                  src={img.src}
+                  alt={img.alt}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  onError={(e) => {
+                    if (e.currentTarget.src !== img.fallback) {
+                      e.currentTarget.src = img.fallback;
+                    }
+                  }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#8B0000]/40 to-transparent opacity-60" />
+              </motion.div>
+            ))}
+          </div>
 
           {/* Overlay gradient */}
           <div className="absolute inset-0 bg-gradient-to-l from-transparent to-[#0a0000]/50 lg:to-[#0a0000]/80" />

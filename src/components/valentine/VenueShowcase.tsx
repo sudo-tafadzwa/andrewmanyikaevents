@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
-import { Sparkles, Star, Award, Camera, Music, Gamepad2, Mic } from 'lucide-react';
+import { Sparkles, Star, Award, Camera, Crown, Shield, Users, Gem } from 'lucide-react';
 
 export function VenueShowcase() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -12,30 +12,34 @@ export function VenueShowcase() {
   const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
   const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.5, 1, 0.5]);
 
-  const experiences = [
+  const venueHighlights = [
     {
       icon: Camera,
-      title: 'Red Carpet Experience',
-      description: "It's Lights, Camera, Action when you walk the red carpet – dress to dazzle",
-      image: '/images/red-carpet.jpg'
+      title: 'Red Carpet Arrival',
+      description: "Make a grand entrance on our signature red carpet with professional photographers capturing your star-worthy moments",
+      image: '/images/red-carpet.jpeg',
+      fallback: 'https://images.unsplash.com/photo-1607537002385-fe6f11ec19b8?q=80&w=800'
     },
     {
-      icon: Music,
-      title: 'Live Entertainment',
-      description: 'Award winning Poets & Comedians; Dancers & DJs; and Magnificent Musicians',
-      image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=800'
+      icon: Crown,
+      title: 'VIP Lounge Exclusivity',
+      description: "Experience the pinnacle of luxury in Rainbow Towers' most prestigious private space, reserved exclusively for our 100 guests",
+      image: 'https://images.unsplash.com/photo-1590490359683-658d3d23f972?q=80&w=800',
+      fallback: 'https://images.unsplash.com/photo-1590490359683-658d3d23f972?q=80&w=800'
     },
     {
-      icon: Gamepad2,
-      title: 'Party Games',
-      description: "Fun activities from our Master of Ceremonies designed to break the ice",
-      image: 'https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?q=80&w=800'
+      icon: Gem,
+      title: 'World-Class Hospitality',
+      description: "Rainbow Towers' award-winning service team delivers impeccable attention to every detail of your evening",
+      image: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=800',
+      fallback: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=800'
     },
     {
-      icon: Mic,
-      title: 'Karaoke',
-      description: 'The floor is yours – take the stage and let your voice shine',
-      image: 'https://images.unsplash.com/photo-1516280440614-37939bbacd81?q=80&w=800'
+      icon: Shield,
+      title: 'Private & Secure',
+      description: "Enjoy complete privacy with dedicated security and exclusive access to our transformed luxury venue",
+      image: 'https://images.unsplash.com/photo-1517457373958-b7bdd4587205?q=80&w=800',
+      fallback: 'https://images.unsplash.com/photo-1517457373958-b7bdd4587205?q=80&w=800'
     }
   ];
 
@@ -73,9 +77,9 @@ export function VenueShowcase() {
           </p>
         </motion.div>
 
-        {/* Experience Grid with Images */}
+        {/* Venue Highlights Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
-          {experiences.map((exp, i) => (
+          {venueHighlights.map((item, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 30 }}
@@ -87,11 +91,13 @@ export function VenueShowcase() {
               {/* Background Image */}
               <div className="absolute inset-0">
                 <img
-                  src={exp.image}
-                  alt={exp.title}
+                  src={item.image}
+                  alt={item.title}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   onError={(e) => {
-                    e.currentTarget.style.display = 'none';
+                    if (item.fallback && e.currentTarget.src !== item.fallback) {
+                      e.currentTarget.src = item.fallback;
+                    }
                   }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0a0000] via-[#0a0000]/60 to-transparent" />
@@ -99,17 +105,13 @@ export function VenueShowcase() {
 
               {/* Content overlay */}
               <div className="absolute inset-0 p-8 flex flex-col justify-end">
-                <motion.div
-                  initial={{ y: 20, opacity: 0 }}
-                  whileInView={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.2 + i * 0.1 }}
-                >
+                <div>
                   <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#8B0000] to-[#B76E79] flex items-center justify-center mb-4 shadow-[0_0_30px_rgba(139,0,0,0.4)] group-hover:scale-110 transition-transform duration-300">
-                    <exp.icon className="w-7 h-7 text-white" />
+                    <item.icon className="w-7 h-7 text-white" />
                   </div>
-                  <h3 className="text-2xl font-serif text-white mb-2">{exp.title}</h3>
-                  <p className="text-gray-300 text-sm leading-relaxed">{exp.description}</p>
-                </motion.div>
+                  <h3 className="text-2xl font-serif text-white mb-2">{item.title}</h3>
+                  <p className="text-gray-300 text-sm leading-relaxed">{item.description}</p>
+                </div>
               </div>
 
               {/* Decorative corner */}
@@ -131,18 +133,18 @@ export function VenueShowcase() {
           {[
             {
               icon: Star,
-              title: '5-Star Service',
-              desc: 'Dedicated staff ensuring perfection'
+              title: 'Harare\'s Iconic Landmark',
+              desc: 'Host your special night at Zimbabwe\'s most prestigious hotel'
             },
             {
               icon: Award,
-              title: 'Premium Location',
-              desc: 'Rainbow Towers VIP Lounge, Harare'
+              title: 'Limited to 100 Guests',
+              desc: 'An intimate, exclusive gathering for a select few'
             },
             {
-              icon: Sparkles,
-              title: 'Elegant Décor',
-              desc: 'Professionally designed ambiance'
+              icon: Users,
+              title: 'Valet & Concierge',
+              desc: 'Complimentary valet parking and dedicated concierge service'
             }
           ].map((feature, i) => (
             <motion.div

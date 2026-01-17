@@ -103,6 +103,15 @@ const menuCourses = [
 ];
 
 export function MenuModal({ isOpen, onClose }: MenuModalProps) {
+  // Prevent body scroll when modal is open
+  if (typeof window !== 'undefined') {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+  }
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -110,15 +119,16 @@ export function MenuModal({ isOpen, onClose }: MenuModalProps) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+          transition={{ duration: 0.2 }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80"
           onClick={onClose}
         >
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className="relative w-full max-w-4xl max-h-[90vh] bg-gradient-to-br from-[#1a0000] to-[#0a0000] rounded-3xl overflow-hidden border border-[#8B0000]/30"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.2 }}
+            className="relative w-full max-w-4xl max-h-[90vh] bg-gradient-to-br from-[#1a0000] to-[#0a0000] rounded-2xl sm:rounded-3xl overflow-hidden border border-[#8B0000]/30"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header */}
@@ -151,15 +161,10 @@ export function MenuModal({ isOpen, onClose }: MenuModalProps) {
             </div>
 
             {/* Content */}
-            <div className="px-8 pb-8 overflow-y-auto max-h-[calc(90vh-180px)] custom-scrollbar">
-              <div className="space-y-12">
+            <div className="px-4 sm:px-8 pb-8 overflow-y-auto max-h-[calc(90vh-180px)] overscroll-contain" style={{ WebkitOverflowScrolling: 'touch' }}>
+              <div className="space-y-8 sm:space-y-12">
                 {menuCourses.map((course, courseIndex) => (
-                  <motion.div
-                    key={courseIndex}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: courseIndex * 0.15 }}
-                  >
+                  <div key={courseIndex}>
                     {/* Course Header */}
                     <div className="flex items-center gap-4 mb-6">
                       <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#8B0000] to-[#B76E79] flex items-center justify-center shadow-[0_0_20px_rgba(139,0,0,0.4)]">
@@ -172,14 +177,11 @@ export function MenuModal({ isOpen, onClose }: MenuModalProps) {
                     </div>
 
                     {/* Course Items */}
-                    <div className="space-y-6 pl-4 border-l-2 border-[#8B0000]/30 ml-7">
+                    <div className="space-y-4 sm:space-y-6 pl-4 border-l-2 border-[#8B0000]/30 ml-7">
                       {course.items.map((item, itemIndex) => (
-                        <motion.div
+                        <div
                           key={itemIndex}
-                          initial={{ opacity: 0, x: -10 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: courseIndex * 0.15 + itemIndex * 0.1 }}
-                          className={`relative p-6 rounded-2xl ${
+                          className={`relative p-4 sm:p-6 rounded-xl sm:rounded-2xl ${
                             item.signature
                               ? 'bg-gradient-to-br from-[#B76E79]/20 to-[#8B0000]/10 border border-[#B76E79]/40'
                               : 'bg-[#8B0000]/10 border border-[#8B0000]/20'
@@ -234,50 +236,24 @@ export function MenuModal({ isOpen, onClose }: MenuModalProps) {
                               ))}
                             </div>
                           )}
-                        </motion.div>
+                        </div>
                       ))}
                     </div>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
 
               {/* Footer note */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1 }}
-                className="mt-12 text-center p-6 rounded-2xl bg-[#8B0000]/10 border border-[#8B0000]/20"
-              >
+              <div className="mt-8 sm:mt-12 text-center p-4 sm:p-6 rounded-xl sm:rounded-2xl bg-[#8B0000]/10 border border-[#8B0000]/20">
                 <p className="text-gray-400 text-sm">
                   All dishes prepared with locally sourced ingredients from Nyanga, Vumba, and the Eastern Highlands.
                 </p>
                 <p className="text-[#B76E79] text-xs mt-2">
                   Please inform our staff of any dietary requirements or allergies.
                 </p>
-              </motion.div>
+              </div>
             </div>
-
-            {/* Glow effects */}
-            <div className="absolute top-20 right-20 w-64 h-64 bg-[#8B0000] rounded-full blur-[150px] opacity-20 pointer-events-none" />
-            <div className="absolute bottom-20 left-20 w-48 h-48 bg-[#B76E79] rounded-full blur-[120px] opacity-15 pointer-events-none" />
           </motion.div>
-
-          <style>{`
-            .custom-scrollbar::-webkit-scrollbar {
-              width: 6px;
-            }
-            .custom-scrollbar::-webkit-scrollbar-track {
-              background: rgba(139, 0, 0, 0.1);
-              border-radius: 4px;
-            }
-            .custom-scrollbar::-webkit-scrollbar-thumb {
-              background: rgba(183, 110, 121, 0.5);
-              border-radius: 4px;
-            }
-            .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-              background: rgba(183, 110, 121, 0.7);
-            }
-          `}</style>
         </motion.div>
       )}
     </AnimatePresence>
