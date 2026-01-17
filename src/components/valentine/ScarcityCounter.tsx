@@ -29,8 +29,10 @@ function ViewerCount() {
   );
 }
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
+
 export function ScarcityCounter() {
-  const [tickets, setTickets] = useState(100);
+  const [tickets, setTickets] = useState(89);
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -38,15 +40,28 @@ export function ScarcityCounter() {
     seconds: 0
   });
 
-  // Ticket decrement logic - approximately 4 per day
+  // Fetch real ticket data from backend
   useEffect(() => {
-    const interval = setInterval(() => {
-      setTickets(prev => {
-        if (prev <= 15) return prev;
-        // Random chance to decrease, roughly 4 times per day equivalent
-        return Math.random() > 0.85 ? prev - 1 : prev;
-      });
-    }, 8000); // Check every 8 seconds
+    const fetchTickets = async () => {
+      try {
+        const response = await fetch(`${API_URL}/stats`);
+        if (response.ok) {
+          const data = await response.json();
+          // Calculate total remaining tickets (standard + premium)
+          const totalRemaining = data.standard.remaining + data.premium.remaining;
+          setTickets(totalRemaining);
+        }
+      } catch (error) {
+        console.error('Failed to fetch ticket stats:', error);
+        // Keep default value on error
+      }
+    };
+
+    // Fetch immediately
+    fetchTickets();
+
+    // Refresh every 30 seconds
+    const interval = setInterval(fetchTickets, 30000);
     return () => clearInterval(interval);
   }, []);
 
