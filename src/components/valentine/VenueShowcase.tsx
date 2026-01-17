@@ -44,7 +44,7 @@ export function VenueShowcase() {
   ];
 
   return (
-    <section ref={containerRef} className="relative bg-[#0a0000] py-24 overflow-hidden">
+    <section id="venue-section" ref={containerRef} className="relative bg-[#0a0000] py-24 overflow-hidden">
       {/* Parallax background elements */}
       <motion.div
         style={{ y, opacity }}

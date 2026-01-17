@@ -14,6 +14,7 @@ export function PricingSection() {
   const standardFeatures = [
     '4 Course Gourmet Dinner',
     'Red carpet entrance',
+    'Stand up comedy & poetry by Andrew Manyika',
     'Live entertainment',
     'Party games with MC',
     'Karaoke',
@@ -34,7 +35,7 @@ export function PricingSection() {
   ];
 
   return (
-    <section className="py-24 bg-gradient-to-b from-[#1a0000] to-[#0a0000] px-4 relative overflow-hidden">
+    <section id="pricing-section" className="py-24 bg-gradient-to-b from-[#1a0000] to-[#0a0000] px-4 relative overflow-hidden">
       {/* Background glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#8B0000] rounded-full blur-[250px] opacity-10" />
 
@@ -258,7 +259,7 @@ export function PricingSection() {
           viewport={{ once: true }}
           className="flex flex-wrap justify-center gap-8 mt-8 text-gray-500 text-sm"
         >
-          {['Money-back guarantee', '100% secure checkout', 'Instant confirmation', 'Customer support'].map((badge, i) => (
+          {['Instant confirmation', 'Customer support'].map((badge, i) => (
             <div key={i} className="flex items-center gap-2">
               <Check className="w-4 h-4 text-[#B76E79]" />
               <span>{badge}</span>

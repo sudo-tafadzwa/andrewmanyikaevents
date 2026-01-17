@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Camera, Wine, Music, Utensils, Gamepad2, Users, Mic, Sparkles, Star, Gift } from 'lucide-react';
+import { X, Camera, Music, Utensils, Gamepad2, Users, Mic, Sparkles, Star, Gift, Crown, Gem, Shield, Award, MapPin } from 'lucide-react';
 
 interface ItineraryModalProps {
   isOpen: boolean;
@@ -17,14 +17,8 @@ const itineraryItems = [
     highlight: true
   },
   {
-    title: 'Welcome Drinks & Reception',
-    description: 'Indulge in handcrafted mocktails and exquisite canapés as you mingle in an atmosphere of sophistication. The perfect prelude to an unforgettable evening.',
-    icon: Wine,
-    image: 'https://images.unsplash.com/photo-1551024709-8f23befc6f87?q=80&w=600'
-  },
-  {
-    title: 'Live Entertainment',
-    description: 'Award winning Poets & Comedians; Dancers & DJs; and Magnificent Musicians take centre stage to take you on a unique visual and sonic journey.',
+    title: 'Stand Up Comedy & Performance Poetry by Andrew Manyika',
+    description: 'Dynamic Dancers, Prolific Poets and Magnificent Musicians take centre stage to send you on a unique visual and sonic journey.',
     icon: Music,
     image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=600',
     highlight: true
@@ -88,6 +82,55 @@ const premiumExperiences = [
     title: 'Exclusive Gift Package',
     description: 'Luxury curated gift set worth $150+ to take home',
     icon: Star
+  }
+];
+
+const venueHighlights = [
+  {
+    icon: Camera,
+    title: 'Red Carpet Arrival',
+    description: "Make a grand entrance on our signature red carpet with professional photographers capturing your star-worthy moments",
+    image: '/images/red-carpet.jpeg',
+    fallback: 'https://images.unsplash.com/photo-1607537002385-fe6f11ec19b8?q=80&w=800'
+  },
+  {
+    icon: Crown,
+    title: 'VIP Lounge Exclusivity',
+    description: "Experience the pinnacle of luxury in Rainbow Towers' most prestigious private space, reserved exclusively for our 100 guests",
+    image: 'https://images.unsplash.com/photo-1590490359683-658d3d23f972?q=80&w=800',
+    fallback: 'https://images.unsplash.com/photo-1590490359683-658d3d23f972?q=80&w=800'
+  },
+  {
+    icon: Gem,
+    title: 'World-Class Hospitality',
+    description: "Rainbow Towers' award-winning service team delivers impeccable attention to every detail of your evening",
+    image: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=800',
+    fallback: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=800'
+  },
+  {
+    icon: Shield,
+    title: 'Private & Secure',
+    description: "Enjoy complete privacy with dedicated security and exclusive access to our transformed luxury venue",
+    image: 'https://images.unsplash.com/photo-1517457373958-b7bdd4587205?q=80&w=800',
+    fallback: 'https://images.unsplash.com/photo-1517457373958-b7bdd4587205?q=80&w=800'
+  }
+];
+
+const venueFeatures = [
+  {
+    icon: Star,
+    title: "Harare's Iconic Landmark",
+    desc: "Host your special night at Zimbabwe's most prestigious hotel"
+  },
+  {
+    icon: Award,
+    title: 'Limited to 100 Guests',
+    desc: 'An intimate, exclusive gathering for a select few'
+  },
+  {
+    icon: Users,
+    title: 'Secure Parking',
+    desc: 'Safe and convenient parking facilities at Rainbow Towers'
   }
 ];
 
@@ -246,6 +289,83 @@ export function ItineraryModal({ isOpen, onClose, onViewMenu }: ItineraryModalPr
                       </div>
                       <h4 className="text-white font-medium mb-1">{exp.title}</h4>
                       <p className="text-gray-400 text-sm">{exp.description}</p>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+
+              {/* Venue Section */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1 }}
+                className="mt-12"
+              >
+                <div className="text-center mb-8">
+                  <div className="inline-flex items-center gap-2 bg-[#8B0000]/10 border border-[#8B0000]/20 rounded-full px-4 py-2 mb-4">
+                    <MapPin className="w-4 h-4 text-[#B76E79]" />
+                    <span className="text-[#B76E79] text-sm font-medium">THE VENUE</span>
+                  </div>
+                  <h3 className="text-3xl font-serif text-white mb-2">
+                    Occupy{' '}
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8B0000] via-[#B76E79] to-[#8B0000]">
+                      Opulence
+                    </span>
+                  </h3>
+                  <p className="text-gray-400 text-sm max-w-2xl mx-auto">
+                    Nestled in the Heart of Harare's Premiere luxury hotel is the Rainbow Towers VIP lounge,
+                    reimagined as a custom luxury restaurant for one night only.
+                  </p>
+                </div>
+
+                {/* Venue Highlights Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                  {venueHighlights.map((item, i) => (
+                    <div
+                      key={i}
+                      className="group relative overflow-hidden rounded-xl h-[200px]"
+                    >
+                      {/* Background Image */}
+                      <div className="absolute inset-0">
+                        <img
+                          src={item.image}
+                          alt={item.title}
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            if (item.fallback && e.currentTarget.src !== item.fallback) {
+                              e.currentTarget.src = item.fallback;
+                            }
+                          }}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0000] via-[#0a0000]/70 to-transparent" />
+                      </div>
+
+                      {/* Content overlay */}
+                      <div className="absolute inset-0 p-4 flex flex-col justify-end">
+                        <div className="flex items-center gap-2 mb-2">
+                          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#8B0000] to-[#B76E79] flex items-center justify-center">
+                            <item.icon className="w-4 h-4 text-white" />
+                          </div>
+                          <h4 className="text-lg font-serif text-white">{item.title}</h4>
+                        </div>
+                        <p className="text-gray-300 text-xs leading-relaxed">{item.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Venue Features */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {venueFeatures.map((feature, i) => (
+                    <div
+                      key={i}
+                      className="p-4 rounded-xl bg-gradient-to-br from-[#8B0000]/10 to-transparent border border-[#8B0000]/20"
+                    >
+                      <div className="w-10 h-10 rounded-lg bg-[#8B0000]/20 flex items-center justify-center mb-3">
+                        <feature.icon className="w-5 h-5 text-[#B76E79]" />
+                      </div>
+                      <h4 className="text-white font-medium mb-1">{feature.title}</h4>
+                      <p className="text-gray-400 text-sm">{feature.desc}</p>
                     </div>
                   ))}
                 </div>

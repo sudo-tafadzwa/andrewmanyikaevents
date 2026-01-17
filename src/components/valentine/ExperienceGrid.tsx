@@ -28,8 +28,8 @@ const experiences = [
   },
   {
     icon: Music,
-    title: 'Live Entertainment',
-    desc: 'Award winning Poets & Comedians; Dancers & DJs; and Magnificent Musicians take centre stage to take you on a unique visual and sonic journey',
+    title: 'Stand Up Comedy & Poetry by Andrew Manyika',
+    desc: 'Dynamic Dancers, Prolific Poets and Magnificent Musicians take centre stage to send you on a unique visual and sonic journey',
     gradient: 'from-[#722F37] to-[#8B0000]',
     span: 'md:col-span-1',
     image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=800',
