@@ -76,7 +76,7 @@
 
   // Event Config Schema (for total tickets available)
   const eventConfigSchema = new mongoose.Schema({
-    totalStandardTickets: { type: Number, default: 100 },
+    totalStandardTickets: { type: Number, default: 50 },
     totalPremiumTickets: { type: Number, default: 50 },
     standardPrice: { type: Number, default: 100 },
     premiumPrice: { type: Number, default: 150 }
@@ -117,8 +117,8 @@
       res.json({
         standard: {
           sold: standardCount,
-          total: config?.totalStandardTickets || 100,
-          remaining: (config?.totalStandardTickets || 100) - standardCount,
+          total: config?.totalStandardTickets || 50,
+          remaining: (config?.totalStandardTickets || 50) - standardCount,
           price: config?.standardPrice || 100
         },
         premium: {

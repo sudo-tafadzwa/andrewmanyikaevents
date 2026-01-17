@@ -31,7 +31,14 @@ export function HeroSection() {
       {/* Mobile Navigation Header */}
       <nav className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-[#0a0000]/90 backdrop-blur-md border-b border-[#8B0000]/20">
         <div className="flex items-center justify-between px-4 py-3">
-          <span className="text-white font-serif text-lg">S&S</span>
+          <img
+            src="/images/logo.png"
+            alt="Spices & Spouses"
+            className="h-10"
+            onError={(e) => {
+              e.currentTarget.style.display = 'none';
+            }}
+          />
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="w-10 h-10 rounded-full bg-[#8B0000]/20 border border-[#8B0000]/30 flex items-center justify-center text-white"
@@ -75,7 +82,14 @@ export function HeroSection() {
       {/* Desktop Navigation */}
       <nav className="hidden lg:flex fixed top-0 left-0 right-0 z-50 bg-[#0a0000]/80 backdrop-blur-md border-b border-[#8B0000]/20">
         <div className="max-w-7xl mx-auto w-full flex items-center justify-between px-8 py-4">
-          <span className="text-white font-serif text-xl">Spices & Spouses</span>
+          <img
+            src="/images/logo.png"
+            alt="Spices & Spouses"
+            className="h-12"
+            onError={(e) => {
+              e.currentTarget.style.display = 'none';
+            }}
+          />
           <div className="flex items-center gap-8">
             {navItems.map((item, i) => (
               <button

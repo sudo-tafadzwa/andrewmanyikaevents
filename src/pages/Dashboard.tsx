@@ -319,7 +319,7 @@ export function Dashboard() {
               <span className="text-white font-medium text-sm">Standard</span>
             </div>
             <p className="text-3xl font-bold text-white mb-1">{stats?.standard.sold || 0}</p>
-            <p className="text-xs text-gray-400">{stats?.standard.remaining || 0} left of {stats?.standard.total || 100}</p>
+            <p className="text-xs text-gray-400">{stats?.standard.remaining || 0} left of {stats?.standard.total || 50}</p>
             <div className="mt-2 px-2 py-1 bg-[#8B0000]/20 rounded-full inline-block">
               <span className="text-[#B76E79] text-xs font-medium">$100</span>
             </div>
