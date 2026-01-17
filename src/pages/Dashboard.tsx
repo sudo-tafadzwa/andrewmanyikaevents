@@ -20,16 +20,15 @@ interface TicketData {
 interface Stats {
   standard: {
     sold: number;
-    total: number;
-    remaining: number;
     price: number;
   };
   premium: {
     sold: number;
-    total: number;
-    remaining: number;
     price: number;
   };
+  total: number;
+  sold: number;
+  remaining: number;
   totalRevenue: number;
 }
 
@@ -189,8 +188,8 @@ export function Dashboard() {
     );
   }
 
-  const totalTicketsSold = (stats?.standard.sold || 0) + (stats?.premium.sold || 0);
-  const totalTickets = (stats?.standard.total || 0) + (stats?.premium.total || 0);
+  const totalTicketsSold = stats?.sold || 0;
+  const totalTickets = stats?.total || 100;
   const progressPercent = totalTickets > 0 ? (totalTicketsSold / totalTickets) * 100 : 0;
 
   return (
@@ -302,7 +301,7 @@ export function Dashboard() {
           </div>
         </motion.div>
 
-        {/* Category Breakdown - Tickets Bought Per Category */}
+        {/* Category Breakdown - Tickets Sold Per Category */}
         <div className="mt-4">
           <h2 className="text-white font-medium mb-3 px-1">Tickets Sold by Category</h2>
           <div className="grid grid-cols-2 gap-3">
@@ -318,16 +317,7 @@ export function Dashboard() {
               </div>
               <div className="mb-3">
                 <p className="text-4xl font-bold text-white mb-1">{stats?.standard.sold || 0}</p>
-                <p className="text-xs text-gray-500">tickets bought</p>
-              </div>
-              <div className="space-y-1">
-                <p className="text-xs text-gray-400">{stats?.standard.remaining || 0} remaining of {stats?.standard.total || 50}</p>
-                <div className="h-1.5 bg-[#8B0000]/20 rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-gradient-to-r from-[#8B0000] to-[#B76E79] rounded-full"
-                    style={{ width: `${((stats?.standard.sold || 0) / (stats?.standard.total || 50)) * 100}%` }}
-                  />
-                </div>
+                <p className="text-xs text-gray-500">tickets sold</p>
               </div>
               <div className="mt-3 px-2 py-1 bg-[#8B0000]/20 rounded-full inline-block">
                 <span className="text-[#B76E79] text-xs font-medium">$100 each</span>
@@ -346,16 +336,7 @@ export function Dashboard() {
               </div>
               <div className="mb-3">
                 <p className="text-4xl font-bold text-white mb-1">{stats?.premium.sold || 0}</p>
-                <p className="text-xs text-gray-500">tickets bought</p>
-              </div>
-              <div className="space-y-1">
-                <p className="text-xs text-gray-400">{stats?.premium.remaining || 0} remaining of {stats?.premium.total || 50}</p>
-                <div className="h-1.5 bg-[#8B0000]/20 rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-gradient-to-r from-[#B76E79] to-[#8B0000] rounded-full"
-                    style={{ width: `${((stats?.premium.sold || 0) / (stats?.premium.total || 50)) * 100}%` }}
-                  />
-                </div>
+                <p className="text-xs text-gray-500">tickets sold</p>
               </div>
               <div className="mt-3 px-2 py-1 bg-[#B76E79]/20 rounded-full inline-block">
                 <span className="text-[#B76E79] text-xs font-medium">$150 each</span>

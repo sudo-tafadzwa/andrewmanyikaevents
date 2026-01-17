@@ -47,9 +47,8 @@ export function ScarcityCounter() {
         const response = await fetch(`${API_URL}/stats`);
         if (response.ok) {
           const data = await response.json();
-          // Calculate total remaining tickets (standard + premium)
-          const totalRemaining = data.standard.remaining + data.premium.remaining;
-          setTickets(totalRemaining);
+          // Use total remaining from API
+          setTickets(data.remaining || 89);
         }
       } catch (error) {
         console.error('Failed to fetch ticket stats:', error);
