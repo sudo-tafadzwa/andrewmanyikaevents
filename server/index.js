@@ -13,6 +13,10 @@
     'http://localhost:5174',
     'http://localhost:3000',
     'https://andrewmanyikaevents.vercel.app',
+    'https://andrewmanyikaevents.com',
+    'https://www.andrewmanyikaevents.com',
+    'http://andrewmanyikaevents.com',
+    'http://www.andrewmanyikaevents.com',
     process.env.FRONTEND_URL // Add your production frontend URL as env variable
   ].filter(Boolean);
 
