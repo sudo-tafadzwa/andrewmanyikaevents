@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Calendar, MapPin, Users, Menu, X, Ticket, Utensils, Star } from 'lucide-react';
+import { Calendar, MapPin, Users, Menu, X, Ticket, Utensils, Star, Sparkles } from 'lucide-react';
 
 interface HeroSectionProps {
   onViewMenu?: () => void;
@@ -174,7 +174,8 @@ export function HeroSection({ onViewMenu }: HeroSectionProps) {
             {[
               { icon: Calendar, text: 'Saturday, February 14th, 2026 • 6 – 10 PM' },
               { icon: MapPin, text: 'Rainbow Towers Harare, VIP Lounge' },
-              { icon: Users, text: 'A Comedy & Poetry Dinner for Singles, Couples & Friends' }
+              { icon: Users, text: 'A Comedy & Poetry Dinner for Singles, Couples & Friends' },
+              { icon: Sparkles, text: 'Dress Code: Dazzling Elegance' }
             ].map((item, i) => (
               <div
                 key={i}
@@ -274,7 +275,8 @@ export function HeroSection({ onViewMenu }: HeroSectionProps) {
                 {[
                   { icon: Calendar, text: 'Saturday, February 14th, 2026 • 6 – 10 PM' },
                   { icon: MapPin, text: 'Rainbow Towers Harare, VIP Lounge' },
-                  { icon: Users, text: 'A Comedy & Poetry Dinner for Singles, Couples & Friends' }
+                  { icon: Users, text: 'A Comedy & Poetry Dinner for Singles, Couples & Friends' },
+                  { icon: Sparkles, text: 'Dress Code: Dazzling Elegance' }
                 ].map((item, i) => (
                   <motion.div
                     key={i}
