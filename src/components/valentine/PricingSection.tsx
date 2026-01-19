@@ -111,7 +111,7 @@ export function PricingSection() {
           {/* Horizontal Scroll Container */}
           <div
             ref={scrollRef}
-            className="flex gap-4 overflow-x-auto pb-4 px-4 snap-x snap-mandatory scrollbar-hide"
+            className="flex gap-4 overflow-x-auto pb-4 px-4 pt-4 snap-x snap-mandatory scrollbar-hide"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             {/* Standard Ticket - Mobile */}
@@ -173,11 +173,11 @@ export function PricingSection() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="flex-shrink-0 w-[300px] snap-center relative"
+              className="flex-shrink-0 w-[300px] snap-center relative pt-4"
             >
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-[#8B0000] to-[#B76E79] rounded-2xl blur opacity-30 z-0" />
-              <div className="relative bg-gradient-to-br from-[#1a0000] to-[#0a0000] border border-[#B76E79]/40 rounded-2xl p-6 h-full overflow-visible">
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#8B0000] to-[#B76E79] px-4 py-1 rounded-full text-white font-medium text-xs shadow-lg flex items-center gap-1 z-10">
+              <div className="absolute inset-0 top-4 bg-gradient-to-r from-[#8B0000] to-[#B76E79] rounded-2xl blur opacity-30 z-0" />
+              <div className="relative bg-gradient-to-br from-[#1a0000] to-[#0a0000] border border-[#B76E79]/40 rounded-2xl p-6 h-full">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#8B0000] to-[#B76E79] px-4 py-1 rounded-full text-white font-medium text-xs shadow-lg flex items-center gap-1 z-20 whitespace-nowrap">
                   <Crown className="w-3 h-3" />
                   RECOMMENDED
                 </div>
@@ -239,7 +239,7 @@ export function PricingSection() {
         </div>
 
         {/* Desktop Grid Layout */}
-        <div className="hidden md:grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <div className="hidden md:grid md:grid-cols-2 gap-8 max-w-5xl mx-auto pt-6">
           {/* Standard Ticket */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
