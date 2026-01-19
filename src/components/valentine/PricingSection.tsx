@@ -119,10 +119,10 @@ export function PricingSection() {
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              className="flex-shrink-0 w-[300px] snap-center relative overflow-visible"
+              className="flex-shrink-0 w-[300px] snap-center relative h-[520px]"
             >
-              <div className="relative bg-gradient-to-br from-[#1a0000] to-[#0a0000] border border-[#8B0000]/30 rounded-2xl p-6 h-full">
-                <div className="inline-flex items-center gap-2 bg-[#8B0000]/20 border border-[#8B0000]/30 rounded-full px-3 py-1.5 mb-4">
+              <div className="relative bg-gradient-to-br from-[#1a0000] to-[#0a0000] border border-[#8B0000]/30 rounded-2xl p-6 h-full flex flex-col">
+                <div className="inline-flex items-center gap-2 bg-[#8B0000]/20 border border-[#8B0000]/30 rounded-full px-3 py-1.5 mb-4 w-fit">
                   <Star className="w-3 h-3 text-[#B76E79]" />
                   <span className="text-[#B76E79] text-xs font-medium">STANDARD</span>
                 </div>
@@ -133,9 +133,10 @@ export function PricingSection() {
                     <span className="text-4xl font-serif font-bold text-white">$100</span>
                     <span className="text-gray-500 text-xs">all-inclusive</span>
                   </div>
+                  <p className="text-transparent text-xs mt-1">Placeholder</p>
                 </div>
 
-                <div className="space-y-2 mb-6 max-h-[200px] overflow-y-auto">
+                <div className="space-y-2 mb-6 flex-1 overflow-y-auto">
                   {standardFeatures.map((feature, i) => (
                     <div key={i} className="flex items-center gap-2">
                       <div className="w-4 h-4 rounded-full bg-[#8B0000]/20 border border-[#8B0000]/40 flex items-center justify-center flex-shrink-0">
@@ -146,7 +147,7 @@ export function PricingSection() {
                   ))}
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-2 mt-auto">
                   <a
                     href={getWhatsAppUrl('Standard ($100)')}
                     target="_blank"
@@ -173,16 +174,16 @@ export function PricingSection() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="flex-shrink-0 w-[300px] snap-center relative pt-4"
+              className="flex-shrink-0 w-[300px] snap-center relative h-[520px]"
             >
-              <div className="absolute inset-0 top-4 bg-gradient-to-r from-[#8B0000] to-[#B76E79] rounded-2xl blur opacity-30 z-0" />
-              <div className="relative bg-gradient-to-br from-[#1a0000] to-[#0a0000] border border-[#B76E79]/40 rounded-2xl p-6 h-full">
+              <div className="absolute inset-0 bg-gradient-to-r from-[#8B0000] to-[#B76E79] rounded-2xl blur opacity-30 z-0" />
+              <div className="relative bg-gradient-to-br from-[#1a0000] to-[#0a0000] border border-[#B76E79]/40 rounded-2xl p-6 h-full flex flex-col">
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#8B0000] to-[#B76E79] px-4 py-1 rounded-full text-white font-medium text-xs shadow-lg flex items-center gap-1 z-20 whitespace-nowrap">
                   <Crown className="w-3 h-3" />
                   RECOMMENDED
                 </div>
 
-                <div className="inline-flex items-center gap-2 bg-[#B76E79]/20 border border-[#B76E79]/30 rounded-full px-3 py-1.5 mb-4 mt-3">
+                <div className="inline-flex items-center gap-2 bg-[#B76E79]/20 border border-[#B76E79]/30 rounded-full px-3 py-1.5 mb-4 w-fit">
                   <Sparkles className="w-3 h-3 text-[#B76E79]" />
                   <span className="text-[#B76E79] text-xs font-medium">PREMIUM VIP</span>
                 </div>
@@ -196,7 +197,7 @@ export function PricingSection() {
                   <p className="text-[#B76E79] text-xs mt-1">The ultimate personalized experience</p>
                 </div>
 
-                <div className="space-y-2 mb-6 max-h-[200px] overflow-y-auto">
+                <div className="space-y-2 mb-6 flex-1 overflow-y-auto">
                   {premiumFeatures.map((feature, i) => (
                     <div key={i} className="flex items-center gap-2">
                       <div className={`w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 ${
@@ -209,7 +210,7 @@ export function PricingSection() {
                   ))}
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-2 mt-auto">
                   <a
                     href={getWhatsAppUrl('Premium VIP ($150)')}
                     target="_blank"
@@ -239,17 +240,17 @@ export function PricingSection() {
         </div>
 
         {/* Desktop Grid Layout */}
-        <div className="hidden md:grid md:grid-cols-2 gap-8 max-w-5xl mx-auto pt-6">
+        <div className="hidden md:grid md:grid-cols-2 gap-8 max-w-5xl mx-auto pt-6 items-stretch">
           {/* Standard Ticket */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="relative"
+            className="relative flex"
           >
-            <div className="relative bg-gradient-to-br from-[#1a0000] to-[#0a0000] border border-[#8B0000]/30 rounded-3xl p-8 h-full">
+            <div className="relative bg-gradient-to-br from-[#1a0000] to-[#0a0000] border border-[#8B0000]/30 rounded-3xl p-8 flex flex-col w-full">
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 bg-[#8B0000]/20 border border-[#8B0000]/30 rounded-full px-4 py-2 mb-6">
+              <div className="inline-flex items-center gap-2 bg-[#8B0000]/20 border border-[#8B0000]/30 rounded-full px-4 py-2 mb-6 w-fit">
                 <Star className="w-4 h-4 text-[#B76E79]" />
                 <span className="text-[#B76E79] text-sm font-medium">STANDARD</span>
               </div>
@@ -261,10 +262,11 @@ export function PricingSection() {
                   <span className="text-6xl font-serif font-bold text-white">$100</span>
                   <span className="text-gray-500 text-sm">all-inclusive</span>
                 </div>
+                <p className="text-transparent text-sm mt-2">Placeholder text</p>
               </div>
 
               {/* Features */}
-              <div className="space-y-3 mb-8">
+              <div className="space-y-3 mb-8 flex-1">
                 {standardFeatures.map((feature, i) => (
                   <motion.div
                     key={i}
@@ -283,7 +285,7 @@ export function PricingSection() {
               </div>
 
               {/* CTA Buttons */}
-              <div className="space-y-3">
+              <div className="space-y-3 mt-auto">
                 <motion.a
                   href={getWhatsAppUrl('Standard ($100)')}
                   target="_blank"
@@ -314,19 +316,19 @@ export function PricingSection() {
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="relative"
+            className="relative flex"
           >
             {/* Glow effect */}
             <div className="absolute -inset-1 bg-gradient-to-r from-[#8B0000] to-[#B76E79] rounded-3xl blur opacity-30 z-0" />
 
-            <div className="relative bg-gradient-to-br from-[#1a0000] to-[#0a0000] border border-[#B76E79]/40 rounded-3xl p-8 h-full">
+            <div className="relative bg-gradient-to-br from-[#1a0000] to-[#0a0000] border border-[#B76E79]/40 rounded-3xl p-8 flex flex-col w-full">
               {/* Badge */}
               <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#8B0000] to-[#B76E79] px-6 py-2 rounded-full text-white font-medium text-sm shadow-lg flex items-center gap-2 z-10">
                 <Crown className="w-4 h-4" />
                 RECOMMENDED
               </div>
 
-              <div className="inline-flex items-center gap-2 bg-[#B76E79]/20 border border-[#B76E79]/30 rounded-full px-4 py-2 mb-6 mt-4">
+              <div className="inline-flex items-center gap-2 bg-[#B76E79]/20 border border-[#B76E79]/30 rounded-full px-4 py-2 mb-6 mt-4 w-fit">
                 <Sparkles className="w-4 h-4 text-[#B76E79]" />
                 <span className="text-[#B76E79] text-sm font-medium">PREMIUM VIP</span>
               </div>
@@ -339,12 +341,12 @@ export function PricingSection() {
                   <span className="text-gray-500 text-sm">all-inclusive</span>
                 </div>
                 <p className="text-[#B76E79] text-sm mt-2">
-                  ✨ The ultimate personalized experience
+                  The ultimate personalized experience
                 </p>
               </div>
 
               {/* Features */}
-              <div className="space-y-3 mb-8">
+              <div className="space-y-3 mb-8 flex-1">
                 {premiumFeatures.map((feature, i) => (
                   <motion.div
                     key={i}
@@ -373,7 +375,7 @@ export function PricingSection() {
               </div>
 
               {/* CTA Buttons */}
-              <div className="space-y-3">
+              <div className="space-y-3 mt-auto">
                 <motion.a
                   href={getWhatsAppUrl('Premium VIP ($150)')}
                   target="_blank"
