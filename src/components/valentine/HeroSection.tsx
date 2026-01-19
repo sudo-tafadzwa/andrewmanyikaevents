@@ -30,6 +30,7 @@ export function HeroSection({ onViewMenu }: HeroSectionProps) {
   };
 
   const scrollToTickets = () => {
+    setIsNavMenuOpen(false);
     const pricingSection = document.getElementById('pricing-section');
     if (pricingSection) {
       pricingSection.scrollIntoView({ behavior: 'smooth' });
