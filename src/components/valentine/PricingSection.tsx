@@ -39,11 +39,9 @@ export function PricingSection() {
 
   const premiumFeatures = [
     'Everything in Standard, plus:',
-    'Personalized poetry performance',
+    'Customised Poetry Commission',
     'VIP premium seating',
-    'Exclusive luxury gift package ($150+ value)',
-    'Priority service all night',
-    'Personalized welcome experience',
+    'Premium gift',
     'Private photo session'
   ];
 

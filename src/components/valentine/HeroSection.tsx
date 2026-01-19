@@ -2,20 +2,30 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Calendar, MapPin, Users, Menu, X, Ticket, Utensils, Star } from 'lucide-react';
 
-const navItems = [
-  { label: 'Experience', href: '#experience-section', icon: Star },
-  { label: 'Menu', href: '#experience-section', icon: Utensils },
-  { label: 'Tickets', href: '#pricing-section', icon: Ticket }
-];
+interface HeroSectionProps {
+  onViewMenu?: () => void;
+}
 
-export function HeroSection() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+export function HeroSection({ onViewMenu }: HeroSectionProps) {
+  const [isNavMenuOpen, setIsNavMenuOpen] = useState(false);
 
   const scrollToSection = (href: string) => {
-    setIsMenuOpen(false);
+    setIsNavMenuOpen(false);
     const section = document.querySelector(href);
     if (section) {
       section.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleNavClick = (label: string, href: string) => {
+    setIsNavMenuOpen(false);
+    if (label === 'Menu' && onViewMenu) {
+      onViewMenu();
+    } else {
+      const section = document.querySelector(href);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 
@@ -40,16 +50,16 @@ export function HeroSection() {
             }}
           />
           <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            onClick={() => setIsNavMenuOpen(!isNavMenuOpen)}
             className="w-10 h-10 rounded-full bg-[#8B0000]/20 border border-[#8B0000]/30 flex items-center justify-center text-white"
           >
-            {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {isNavMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
 
         {/* Mobile Menu Dropdown */}
         <AnimatePresence>
-          {isMenuOpen && (
+          {isNavMenuOpen && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
@@ -57,10 +67,14 @@ export function HeroSection() {
               className="overflow-hidden bg-[#1a0000] border-b border-[#8B0000]/30"
             >
               <div className="px-4 py-4 space-y-2">
-                {navItems.map((item, i) => (
+                {[
+                  { label: 'Experience', href: '#experience-section', icon: Star },
+                  { label: 'Menu', href: '#experience-section', icon: Utensils },
+                  { label: 'Tickets', href: '#pricing-section', icon: Ticket }
+                ].map((item, i) => (
                   <button
                     key={i}
-                    onClick={() => scrollToSection(item.href)}
+                    onClick={() => handleNavClick(item.label, item.href)}
                     className="w-full flex items-center gap-3 px-4 py-3 rounded-lg bg-[#8B0000]/10 border border-[#8B0000]/20 text-white hover:bg-[#8B0000]/20 transition-colors"
                   >
                     <item.icon className="w-5 h-5 text-[#B76E79]" />
@@ -91,10 +105,14 @@ export function HeroSection() {
             }}
           />
           <div className="flex items-center gap-8">
-            {navItems.map((item, i) => (
+            {[
+              { label: 'Experience', href: '#experience-section', icon: Star },
+              { label: 'Menu', href: '#experience-section', icon: Utensils },
+              { label: 'Tickets', href: '#pricing-section', icon: Ticket }
+            ].map((item, i) => (
               <button
                 key={i}
-                onClick={() => scrollToSection(item.href)}
+                onClick={() => handleNavClick(item.label, item.href)}
                 className="text-gray-300 hover:text-[#B76E79] transition-colors text-sm"
               >
                 {item.label}

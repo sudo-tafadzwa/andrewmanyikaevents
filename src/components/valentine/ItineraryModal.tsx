@@ -20,7 +20,7 @@ const itineraryItems = [
     title: 'Stand Up Comedy & Performance Poetry by Andrew Manyika',
     description: 'Dynamic Dancers, Prolific Poets and Magnificent Musicians take centre stage to send you on a unique visual and sonic journey.',
     icon: Music,
-    image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=600',
+    image: '/images/Andrew.jpg',
     highlight: true
   },
   {

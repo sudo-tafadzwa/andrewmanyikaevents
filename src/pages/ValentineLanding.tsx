@@ -37,7 +37,7 @@ export function ValentineLanding() {
 
   return (
     <main className="min-h-screen bg-[#0a0000] overflow-x-hidden">
-      <HeroSection />
+      <HeroSection onViewMenu={handleOpenMenu} />
       <ScarcityCounter />
       <ExperienceGrid
         onViewItinerary={() => setIsItineraryOpen(true)}

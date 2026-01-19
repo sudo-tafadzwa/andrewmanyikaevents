@@ -18,20 +18,20 @@ const experiences = [
     hasMenu: true
   },
   {
+    icon: Mic,
+    title: 'Stand Up Comedy & Poetry',
+    desc: 'Embrace the masterful storytelling of International Poet & 2x NAMA Nominated Comedian Andrew Manyika',
+    gradient: 'from-[#722F37] to-[#8B0000]',
+    image: '/images/Andrew.jpg',
+    fallbackImage: 'https://images.unsplash.com/photo-1527224538127-2104bb71c51b?q=80&w=800'
+  },
+  {
     icon: Camera,
     title: 'Red Carpet Experience',
     desc: "Lights, Camera, Action – dress to dazzle",
     gradient: 'from-[#B76E79] to-[#8B0000]',
     image: '/images/red-carpet.jpeg',
     fallbackImage: 'https://images.unsplash.com/photo-1607537002385-fe6f11ec19b8?q=80&w=800'
-  },
-  {
-    icon: Mic,
-    title: 'Stand Up Comedy & Poetry',
-    desc: 'Andrew Manyika delivers sharp wit and soulful spoken word',
-    gradient: 'from-[#722F37] to-[#8B0000]',
-    image: 'https://images.unsplash.com/photo-1527224538127-2104bb71c51b?q=80&w=800',
-    fallbackImage: 'https://images.unsplash.com/photo-1527224538127-2104bb71c51b?q=80&w=800'
   },
   {
     icon: Music,
