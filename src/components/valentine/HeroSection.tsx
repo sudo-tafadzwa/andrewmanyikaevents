@@ -161,6 +161,10 @@ export function HeroSection({ onViewMenu }: HeroSectionProps) {
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8B0000] via-[#B76E79] to-[#8B0000]">
               {' '}& Spouses
             </span>
+            <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8B0000] via-[#B76E79] to-[#8B0000]">
+              Experience
+            </span>
           </h1>
 
           {/* Description */}
@@ -261,6 +265,10 @@ export function HeroSection({ onViewMenu }: HeroSectionProps) {
                 <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8B0000] via-[#B76E79] to-[#8B0000]">
                   & Spouses
+                </span>
+                <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8B0000] via-[#B76E79] to-[#8B0000]">
+                  Experience
                 </span>
               </h1>
 
