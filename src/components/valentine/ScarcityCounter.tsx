@@ -29,63 +29,17 @@ function ViewerCount() {
   );
 }
 
-// Calculate tickets remaining based on systematic countdown
-function calculateTicketsRemaining(): number {
-  const now = new Date();
-  const startDate = new Date('2026-01-19T00:00:00'); // Today - start with 100 tickets
-  const endDate = new Date('2026-02-08T00:00:00'); // Feb 8th - end with 8 tickets
-
-  // If before start date, show 100
-  if (now < startDate) {
-    return 100;
-  }
-
-  // If on or after Feb 8th, show 8
-  if (now >= endDate) {
-    return 8;
-  }
-
-  // Calculate days between start and end (20 days)
-  const totalDays = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
-  // Calculate tickets to decrease (100 - 8 = 92 tickets over 20 days)
-  const totalTicketsToDecrease = 100 - 8;
-  // Tickets per day (roughly 4.6 per day)
-  const ticketsPerDay = totalTicketsToDecrease / totalDays;
-
-  // Calculate days elapsed since start
-  const daysElapsed = (now.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24);
-
-  // Calculate current tickets (with some randomness within the day)
-  const baseTickets = Math.round(100 - (ticketsPerDay * daysElapsed));
-
-  // Add slight variation based on hour of day (tickets "sell" throughout the day)
-  const hourOfDay = now.getHours();
-  const hourlyVariation = Math.floor((hourOfDay / 24) * ticketsPerDay);
-
-  const tickets = Math.max(8, baseTickets - hourlyVariation);
-
-  return tickets;
-}
+// Fixed ticket count - no countdown
+const TICKETS_REMAINING = 79;
 
 export function ScarcityCounter() {
-  const [tickets, setTickets] = useState(() => calculateTicketsRemaining());
+  const tickets = TICKETS_REMAINING;
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
     minutes: 0,
     seconds: 0
   });
-
-  // Update tickets count periodically
-  useEffect(() => {
-    const updateTickets = () => {
-      setTickets(calculateTicketsRemaining());
-    };
-
-    // Update every hour to reflect daily decrease
-    const interval = setInterval(updateTickets, 60 * 60 * 1000);
-    return () => clearInterval(interval);
-  }, []);
 
   // Countdown timer logic - February 14th, 2026 at 6 PM
   useEffect(() => {
