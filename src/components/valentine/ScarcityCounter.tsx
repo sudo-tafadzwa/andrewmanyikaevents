@@ -41,18 +41,20 @@ export function ScarcityCounter() {
     seconds: 0
   });
 
-  // Countdown timer logic - February 14th, 2026 at 6 PM
+  // Countdown timer logic - counts down 4 days per real day until February 14th
   useEffect(() => {
     const targetDate = new Date('2026-02-14T18:00:00');
     const updateTimer = () => {
       const now = new Date();
       const difference = targetDate.getTime() - now.getTime();
       if (difference > 0) {
+        // Multiply by 4 so the countdown ticks 4x faster (4 days per real day)
+        const accelerated = difference * 4;
         setTimeLeft({
-          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-          minutes: Math.floor((difference / 1000 / 60) % 60),
-          seconds: Math.floor((difference / 1000) % 60)
+          days: Math.floor(accelerated / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((accelerated / (1000 * 60 * 60)) % 24),
+          minutes: Math.floor((accelerated / 1000 / 60) % 60),
+          seconds: Math.floor((accelerated / 1000) % 60)
         });
       }
     };

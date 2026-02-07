@@ -4,10 +4,8 @@ import { useRef } from 'react';
 
 const WHATSAPP_NUMBER = '263782826984'; // Zimbabwe format
 
-const getWhatsAppUrl = (ticketType: string, isDeposit: boolean = false) => {
-  const message = isDeposit
-    ? `Hi! I'd like to reserve a ${ticketType} ticket for Spices & Spouses on February 14th, 2026 with a deposit. Please send me the payment details.`
-    : `Hi! I'd like to book a ${ticketType} ticket for Spices & Spouses on February 14th, 2026. Please send me the payment details.`;
+const getWhatsAppUrl = (ticketType: string) => {
+  const message = `Hi! I'd like to book a ${ticketType} ticket for Spices & Spouses on February 14th, 2026. Please send me the payment details.`;
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 };
 
@@ -147,7 +145,7 @@ export function PricingSection() {
                   ))}
                 </div>
 
-                <div className="space-y-2 mt-auto">
+                <div className="mt-auto">
                   <a
                     href={getWhatsAppUrl('Standard ($100)')}
                     target="_blank"
@@ -155,14 +153,6 @@ export function PricingSection() {
                     className="block w-full py-3 px-4 bg-gradient-to-r from-[#8B0000] to-[#A00000] text-white rounded-xl font-medium text-sm text-center"
                   >
                     Book Standard - $100
-                  </a>
-                  <a
-                    href={getWhatsAppUrl('Standard ($100)', true)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block w-full py-3 px-4 bg-transparent border border-[#8B0000]/40 text-gray-400 rounded-xl font-medium text-sm text-center"
-                  >
-                    Reserve with $30 Deposit
                   </a>
                 </div>
               </div>
@@ -210,7 +200,7 @@ export function PricingSection() {
                   ))}
                 </div>
 
-                <div className="space-y-2 mt-auto">
+                <div className="mt-auto">
                   <a
                     href={getWhatsAppUrl('Premium VIP ($150)')}
                     target="_blank"
@@ -218,14 +208,6 @@ export function PricingSection() {
                     className="block w-full py-3 px-4 bg-gradient-to-r from-[#B76E79] to-[#8B0000] text-white rounded-xl font-medium text-sm text-center"
                   >
                     Book Premium VIP - $150
-                  </a>
-                  <a
-                    href={getWhatsAppUrl('Premium VIP ($150)', true)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block w-full py-3 px-4 bg-transparent border border-[#B76E79]/40 text-[#B76E79] rounded-xl font-medium text-sm text-center"
-                  >
-                    Reserve with $50 Deposit
                   </a>
                 </div>
               </div>
@@ -284,8 +266,8 @@ export function PricingSection() {
                 ))}
               </div>
 
-              {/* CTA Buttons */}
-              <div className="space-y-3 mt-auto">
+              {/* CTA Button */}
+              <div className="mt-auto">
                 <motion.a
                   href={getWhatsAppUrl('Standard ($100)')}
                   target="_blank"
@@ -295,17 +277,6 @@ export function PricingSection() {
                   className="block w-full py-4 px-6 bg-gradient-to-r from-[#8B0000] to-[#A00000] text-white rounded-xl font-medium shadow-[0_0_30px_rgba(139,0,0,0.3)] hover:shadow-[0_0_50px_rgba(139,0,0,0.5)] transition-all duration-300 text-center"
                 >
                   Book Standard - $100
-                </motion.a>
-
-                <motion.a
-                  href={getWhatsAppUrl('Standard ($100)', true)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="block w-full py-4 px-6 bg-transparent border border-[#8B0000]/40 text-gray-400 rounded-xl font-medium hover:bg-[#8B0000]/10 hover:text-white transition-all duration-300 text-center"
-                >
-                  Reserve with $30 Deposit
                 </motion.a>
               </div>
             </div>
@@ -374,8 +345,8 @@ export function PricingSection() {
                 ))}
               </div>
 
-              {/* CTA Buttons */}
-              <div className="space-y-3 mt-auto">
+              {/* CTA Button */}
+              <div className="mt-auto">
                 <motion.a
                   href={getWhatsAppUrl('Premium VIP ($150)')}
                   target="_blank"
@@ -385,17 +356,6 @@ export function PricingSection() {
                   className="block w-full py-4 px-6 bg-gradient-to-r from-[#B76E79] to-[#8B0000] text-white rounded-xl font-medium shadow-[0_0_40px_rgba(183,110,121,0.4)] hover:shadow-[0_0_60px_rgba(183,110,121,0.6)] transition-all duration-300 text-center"
                 >
                   Book Premium VIP - $150
-                </motion.a>
-
-                <motion.a
-                  href={getWhatsAppUrl('Premium VIP ($150)', true)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="block w-full py-4 px-6 bg-transparent border border-[#B76E79]/40 text-[#B76E79] rounded-xl font-medium hover:bg-[#B76E79]/10 transition-all duration-300 text-center"
-                >
-                  Reserve with $50 Deposit
                 </motion.a>
               </div>
             </div>
