@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { TrendingDown, AlertCircle } from 'lucide-react';
+import { TrendingDown, AlertCircle, Flame } from 'lucide-react';
 
 function ViewerCount() {
   const [viewerCount, setViewerCount] = useState(() => Math.floor(Math.random() * 10 + 6)); // Random 6-15
@@ -58,20 +58,18 @@ export function ScarcityCounter() {
     seconds: 0
   });
 
-  // Countdown timer logic - counts down 4 days per real day until February 14th
+  // Countdown timer logic - real time until February 14th at 6 PM
   useEffect(() => {
     const targetDate = new Date('2026-02-14T18:00:00');
     const updateTimer = () => {
       const now = new Date();
       const difference = targetDate.getTime() - now.getTime();
       if (difference > 0) {
-        // Multiply by 4 so the countdown ticks 4x faster (4 days per real day)
-        const accelerated = difference * 4;
         setTimeLeft({
-          days: Math.floor(accelerated / (1000 * 60 * 60 * 24)),
-          hours: Math.floor((accelerated / (1000 * 60 * 60)) % 24),
-          minutes: Math.floor((accelerated / 1000 / 60) % 60),
-          seconds: Math.floor((accelerated / 1000) % 60)
+          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+          minutes: Math.floor((difference / 1000 / 60) % 60),
+          seconds: Math.floor((difference / 1000) % 60)
         });
       }
     };
@@ -128,25 +126,68 @@ export function ScarcityCounter() {
             </div>
           </motion.div>
 
-          {/* Countdown Timer */}
-          <div className="flex gap-2 justify-center">
-            {[
-              { label: 'Days', value: timeLeft.days },
-              { label: 'Hours', value: timeLeft.hours },
-              { label: 'Mins', value: timeLeft.minutes },
-              { label: 'Secs', value: timeLeft.seconds }
-            ].map((item, i) => (
-              <div key={i} className="relative">
-                <div className="w-14 h-14 bg-[#8B0000]/10 border border-[#8B0000]/20 rounded-lg flex flex-col items-center justify-center">
-                  <span className="text-xl font-bold text-white font-mono">
-                    {String(item.value).padStart(2, '0')}
-                  </span>
-                  <span className="text-[9px] uppercase text-gray-500 tracking-wider">
-                    {item.label}
-                  </span>
-                </div>
-              </div>
+          {/* Countdown Timer with Confetti */}
+          <div className="relative flex flex-col items-center gap-2">
+            {/* Floating confetti / sparkle particles */}
+            {[...Array(12)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute rounded-full"
+                style={{
+                  width: Math.random() * 6 + 3,
+                  height: Math.random() * 6 + 3,
+                  background: ['#B76E79', '#8B0000', '#FFD700', '#FF6B6B', '#FF69B4', '#FFA07A'][i % 6],
+                  left: `${10 + Math.random() * 80}%`,
+                  top: `${Math.random() * 100}%`,
+                }}
+                animate={{
+                  y: [0, -15, 5, -10, 0],
+                  x: [0, (Math.random() - 0.5) * 20, (Math.random() - 0.5) * 15, 0],
+                  opacity: [0.3, 1, 0.5, 1, 0.3],
+                  scale: [0.8, 1.2, 0.9, 1.1, 0.8],
+                  rotate: [0, 90, 180, 270, 360],
+                }}
+                transition={{
+                  duration: 3 + Math.random() * 4,
+                  repeat: Infinity,
+                  delay: Math.random() * 3,
+                  ease: 'easeInOut',
+                }}
+              />
             ))}
+
+            <div className="flex gap-2 justify-center relative z-10">
+              {[
+                { label: 'Days', value: timeLeft.days },
+                { label: 'Hours', value: timeLeft.hours },
+                { label: 'Mins', value: timeLeft.minutes },
+                { label: 'Secs', value: timeLeft.seconds }
+              ].map((item, i) => (
+                <div key={i} className="relative">
+                  <div className="w-14 h-14 bg-[#8B0000]/10 border border-[#8B0000]/20 rounded-lg flex flex-col items-center justify-center">
+                    <span className="text-xl font-bold text-white font-mono">
+                      {String(item.value).padStart(2, '0')}
+                    </span>
+                    <span className="text-[9px] uppercase text-gray-500 tracking-wider">
+                      {item.label}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Urgency text below countdown */}
+            <motion.div
+              className="flex items-center gap-1.5 relative z-10"
+              animate={{ opacity: [0.7, 1, 0.7] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+            >
+              <Flame className="w-3.5 h-3.5 text-orange-400" />
+              <span className="text-xs font-semibold text-[#B76E79] tracking-wide uppercase">
+                Hurry — Selling out fast!
+              </span>
+              <Flame className="w-3.5 h-3.5 text-orange-400" />
+            </motion.div>
           </div>
 
           {/* Urgency Message */}
