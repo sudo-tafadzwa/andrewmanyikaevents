@@ -29,11 +29,28 @@ function ViewerCount() {
   );
 }
 
-// Fixed ticket count - no countdown
-const TICKETS_REMAINING = 79;
+// Ticket countdown: starts at 40 on Feb 10, drops 8 per day (1 every 3 hours)
+function getTicketsRemaining() {
+  const startDate = new Date('2026-02-10T00:00:00');
+  const startTickets = 40;
+  const ticketsPerDay = 8; // 8 tickets drop per day = 1 every 3 hours
+  const now = new Date();
+  const hoursElapsed = (now.getTime() - startDate.getTime()) / (1000 * 60 * 60);
+  const ticketsDropped = Math.floor(hoursElapsed / 3); // 1 ticket every 3 hours
+  const remaining = startTickets - ticketsDropped;
+  return Math.max(remaining, 2); // never go below 2
+}
 
 export function ScarcityCounter() {
-  const tickets = TICKETS_REMAINING;
+  const [tickets, setTickets] = useState(getTicketsRemaining);
+
+  // Update ticket count every 3 minutes for smooth feel
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTickets(getTicketsRemaining());
+    }, 3 * 60 * 1000);
+    return () => clearInterval(interval);
+  }, []);
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -63,7 +80,7 @@ export function ScarcityCounter() {
     return () => clearInterval(timer);
   }, []);
 
-  const ticketPercentage = (tickets / 100) * 100;
+  const ticketPercentage = (tickets / 40) * 100;
 
   return (
     <section className="sticky top-0 z-40 bg-gradient-to-r from-[#1a0000] via-[#2a0505] to-[#1a0000] border-b border-[#8B0000]/20 backdrop-blur-lg">
@@ -102,10 +119,10 @@ export function ScarcityCounter() {
                       {tickets}
                     </motion.span>
                   </AnimatePresence>
-                  <span className="text-sm text-gray-400">/ 100 tickets left</span>
+                  <span className="text-sm text-gray-400">tickets left</span>
                 </div>
                 <p className="text-xs text-[#B76E79] mt-1">
-                  {tickets > 50 ? 'Selling Fast' : tickets > 20 ? 'Almost Sold Out' : 'Final Spots!'}
+                  {tickets > 30 ? 'Selling Fast' : tickets > 15 ? 'Almost Sold Out' : 'Final Spots!'}
                 </p>
               </div>
             </div>
