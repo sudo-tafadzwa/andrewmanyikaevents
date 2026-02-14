@@ -29,14 +29,9 @@ function ViewerCount() {
   );
 }
 
-// Ticket countdown: 5 left until Feb 14 midday, then 2 left
+// Tickets sold out
 function getTicketsRemaining() {
-  const now = new Date();
-  const middayFeb14 = new Date('2026-02-14T12:00:00');
-  if (now >= middayFeb14) {
-    return 2;
-  }
-  return 5;
+  return 0;
 }
 
 export function ScarcityCounter() {
@@ -117,8 +112,8 @@ export function ScarcityCounter() {
                   </AnimatePresence>
                   <span className="text-sm text-gray-400">tickets left</span>
                 </div>
-                <p className="text-xs text-[#B76E79] mt-1">
-                  {tickets > 30 ? 'Selling Fast' : tickets > 15 ? 'Almost Sold Out' : 'Final Spots!'}
+                <p className="text-xs text-[#B76E79] mt-1 font-bold uppercase">
+                  Sold Out!
                 </p>
               </div>
             </div>
